@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Outfit', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.active-view {
+  @apply text-yellow-400;
+}
+
+body {
+  @apply dark:bg-darkBackground;
+  @apply transition-colors duration-500 ease-in-out;
+}
