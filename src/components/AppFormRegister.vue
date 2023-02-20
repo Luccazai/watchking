@@ -1,0 +1,95 @@
+<script>
+export default {
+  name: 'AppFormLogin',
+  data() {
+    return {
+      formTab: 'register',
+      formInSubmission: false,
+      registerSchema: {
+        name: 'required|min:3|max:30|alpha_spaces',
+        email: 'required|email|max:60',
+        password: 'required|min:8|max:32',
+        confirm_password: 'password_mismatch:@password',
+      },
+    };
+  },
+  methods: {
+    async register(values) {
+      this.formInSubmission = true;
+
+      try {
+        await this.$store.dispatch('register', values);
+      } catch (err) {
+        this.formInSubmission = false;
+        console.log(err);
+      }
+
+      this.$router.push('/');
+    },
+  },
+};
+</script>
+
+<template>
+  <vee-form
+  :validation-schema="registerSchema"
+  @submit="register">
+    <div class="grid grid-rows-2 gap-0">
+      <div class="row-span-1 grid grid-cols-2">
+        <label class="text-center">Name: </label>
+        <vee-field type="text" name="name"
+        class="text-black mx-4 py-0.5 px-1 rounded-lg outline-none ml-0"/>
+      </div>
+      <div class="row-span-1">
+        <p class="text-center">
+          <ErrorMessage class="text-red-600" name="name"/>
+        </p>
+      </div>
+    </div>
+    <div class="grid grid-rows-2 gap-0">
+      <div class="row-span-1 grid grid-cols-2">
+        <label class="text-center">Email: </label>
+        <vee-field type="email" name="email"
+        class="text-black mx-4 py-0.5 px-1 rounded-lg outline-none ml-0"/>
+      </div>
+      <div class="row-span-1">
+        <p class="text-center">
+          <ErrorMessage class="text-red-600" name="email"/>
+        </p>
+      </div>
+    </div>
+    <div class="grid grid-rows-2 gap-0">
+      <div class="row-span-1 grid grid-cols-2">
+        <label class="text-center">Password: </label>
+        <vee-field type="password" name="password"
+        class="text-black mx-4 py-0.5 px-1 rounded-lg outline-none ml-0"/>
+      </div>
+      <div class="row-span-1">
+        <p class="text-center">
+          <ErrorMessage class="text-red-600" name="password"/>
+        </p>
+      </div>
+    </div>
+    <div class="grid grid-rows-2 gap-0">
+      <div class="row-span-1 grid grid-cols-2">
+        <label class="text-center">Confirm Password: </label>
+        <vee-field type="password" name="confirm_password"
+        class="text-black mx-4 py-0.5 px-1 rounded-lg outline-none ml-0"/>
+      </div>
+      <div class="row-span-1">
+        <p class="text-center">
+          <ErrorMessage class="text-red-600" name="confirm_password"/>
+        </p>
+      </div>
+    </div>
+    <div class="mt-5 flex justify-center">
+      <button
+        type="submit"
+        class="font-semibold bg-primaryColorShadow text-white p-2 rounded-lg
+        hover:bg-green-700 transition duration-500"
+        :disabled="formInSubmission">
+        Submit
+      </button>
+    </div>
+  </vee-form>
+</template>

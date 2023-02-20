@@ -18,7 +18,7 @@ export default {
       hasImage: true,
     };
   },
-  beforeMount() {
+  async beforeMount() {
     if (this.showCoverProp === null) {
       this.showCover = 'https://cdn2.iconfinder.com/data/icons/symbol-blue-set-3/100/Untitled-1-94-512.png';
       this.hasImage = false;
@@ -31,21 +31,20 @@ export default {
 
 <template>
   <div
-  class="h-full flex justify-center align-middle relative">
+  class="h-full flex justify-center align-middle relative bg-primaryColor">
     <card-flag
     class="absolute top-0 right-0"
-    :isOnWatchlist="true"
-    :isWatched="false" />
+    :showIDProp="showIDProp"/>
     <router-link
     :to="{ name: 'show', params: { id: showIDProp} }">
       <img
       :src="showCover"
       :alt="showNameProp"
-      :class="{ 'h-full': hasImage }"
-      class="text-primaryColor text-xl font-semibold"
+      :class="{ 'h-3/5': !hasImage }"
+      class="text-white text-xl font-semibold h-full"
       />
       <p
-      class="text-primaryColor text-xl font-semibold"
+      class="text-white text-xl font-semibold text-center"
       :class="{ 'hidden': hasImage }">
         {{ showNameProp }}
       </p>

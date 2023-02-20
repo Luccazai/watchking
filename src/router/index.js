@@ -7,6 +7,9 @@ import AppLogin from '@/views/AppLogin.vue';
 import ShowView from '@/views/ShowView.vue';
 import UserWatchlist from '@/views/UserWatchlist.vue';
 
+import SearchView from '@/views/SearchView.vue';
+import SearchGenre from '@/views/SearchGenre.vue';
+
 const routes = [
   {
     path: '/',
@@ -27,6 +30,16 @@ const routes = [
     path: '/show/:id',
     name: 'show',
     component: ShowView,
+  },
+  {
+    path: '/search/:title',
+    name: 'search',
+    component: SearchView,
+  },
+  {
+    path: '/genre/:genre',
+    name: 'genre',
+    component: SearchGenre,
   },
 ];
 

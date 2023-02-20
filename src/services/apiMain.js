@@ -37,6 +37,8 @@ export default {
           genre,
           page,
           endYear: 2022,
+          startYear: 1960,
+          sort: 'year.decr',
         },
       },
     );
@@ -52,6 +54,13 @@ export default {
           list,
         },
       },
+    );
+    return result;
+  },
+
+  getGenres() {
+    const result = api().get(
+      '/titles/utils/genres',
     );
     return result;
   },

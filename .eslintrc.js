@@ -15,7 +15,9 @@ module.exports = {
     'linebreak-style': [0, 'error', 'windows'],
     'vuejs-accessibility/form-control-has-label': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
+    'vuejs-accessibility/mouse-events-have-key-events': 'off',
     'vuejs-accessibility/label-has-for': 'off',
     'import/no-unresolved': 'off',
+    'prefer-destructuring': 'off',
   },
 };

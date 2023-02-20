@@ -11,6 +11,7 @@ export default {
   },
   getters: {
     isUserLoggedIn: (state) => state.isUserLoggedIn,
+    getUserID: () => auth.currentUser.uid,
   },
   mutations: {
     toggleAuthState(state) {

@@ -14,6 +14,17 @@ export default {
   },
   methods: {
     ...mapGetters(['isUserLoggedIn']),
+
+    logout() {
+      this.$store.dispatch('logout', {
+        router: this.$router,
+        route: this.$route,
+      });
+
+      if (this.$route.meta.requiresAuth) {
+        this.$router.go({ name: 'home' });
+      }
+    },
   },
 };
 </script>
@@ -51,7 +62,7 @@ export default {
       </div>
       <div
       class="col-span-1 w-full text-white font-semibold text-xl flex items-center justify-center">
-      <router-link to="watchlist">
+      <router-link to="/watchlist">
         Watchlist
       </router-link>
       </div>
@@ -68,7 +79,7 @@ export default {
           </router-link>
         </template>
         <template v-else>
-          <button type="button">
+          <button type="button" @click.prevent="logout">
             Logout
           </button>
         </template>

@@ -1,14 +1,13 @@
 <script>
 export default {
-  name: 'BaseShowCardFlag',
-  props: {
-    showIDProp: String,
-  },
+  name: 'ShowViewWatchlistButton',
   data() {
     return {
       isOnWatchlist: false,
       isWatched: false,
       docID: '',
+      buttonText: 'Add to Watchlist',
+      buttonStyle: 'bg-primaryColor',
     };
   },
   methods: {
@@ -23,6 +22,8 @@ export default {
           const response = await this.$store.dispatch('addToWatchlist', requisition);
           this.docID = response.id;
           this.isOnWatchlist = true;
+          this.buttonText = 'On Watchlist';
+          this.buttonStyle = 'bg-yellow-400';
         } catch (err) {
           console.log(err);
         }
@@ -33,6 +34,8 @@ export default {
         try {
           await this.$store.dispatch('markAsWatched', this.docID);
           this.isWatched = true;
+          this.buttonText = 'Watched';
+          this.buttonStyle = 'bg-cyan-400';
         } catch (err) {
           console.log(err);
         }
@@ -44,6 +47,8 @@ export default {
           await this.$store.dispatch('removeFromWatchlist', this.docID);
           this.isWatched = false;
           this.isOnWatchlist = false;
+          this.buttonText = 'Add to Watchlist';
+          this.buttonStyle = 'bg-primaryColor';
         } catch (err) {
           console.log(err);
         }
@@ -51,6 +56,8 @@ export default {
     },
   },
   async beforeMount() {
+    this.showIDProp = this.$route.params.id;
+
     const payload = {
       showID: this.showIDProp,
       userID: this.$store.getters.getUserID,
@@ -58,7 +65,7 @@ export default {
 
     try {
       const isOnList = await this.$store.dispatch('isOnWatchlist', payload);
-      console.log(isOnList);
+      console.log('IS ON LIST: ', isOnList);
 
       if (isOnList.length === 0) {
         return;
@@ -67,10 +74,14 @@ export default {
       if (isOnList.length > 0) {
         this.isOnWatchlist = true;
         this.docID = isOnList[0].docID;
+        this.buttonStyle = 'bg-yellow-400';
+        this.buttonText = 'On Watchlist';
       }
 
       if (isOnList[0].watched) {
         this.isWatched = true;
+        this.buttonStyle = 'bg-cyan-400';
+        this.buttonText = 'Watched';
       }
     } catch (err) {
       console.log(err);
@@ -80,26 +91,16 @@ export default {
 </script>
 
 <template>
-  <div>
-    <button type="button" @click.prevent="manageWatchlist">
-      <span class="fa-stack text-xl">
-        <i
-        class="fa-solid fa-bookmark fa-stack-2x"
-        :class="{
-          'text-primaryColor': !isOnWatchlist,
-          'text-yellow-400': !isWatched && isOnWatchlist,
-          'text-cyan-400': isWatched && isOnWatchlist,
-          }" >
-        </i>
-        <i
-        class="fa-solid fa-stack-1x fa-inverse"
-        :class="{
-          'fa-plus': !isOnWatchlist,
-          'fa-eye': !isWatched && isOnWatchlist,
-          'fa-check': isWatched && isOnWatchlist,
-          }">
-      </i>
-      </span>
+  <div
+  class="w-full flex justify-center items-center rounded-lg"
+  :class="buttonStyle" >
+    <button
+    type="button"
+    @click.prevent="manageWatchlist"
+    class="w-full h-full hover:bg-black hover:bg-opacity-20 transition duration-500">
+      <p class="text-white font-semibold text-xl">
+        {{ buttonText }}
+      </p>
     </button>
   </div>
 </template>

@@ -4,18 +4,16 @@ import 'vue3-carousel/dist/carousel.css';
 import {
   Carousel, Slide, Navigation,
 } from 'vue3-carousel';
-import BaseShowCard from './BaseShowCard.vue';
 
 export default {
   name: 'BaseShowSlider',
   components: {
-    ShowCard: BaseShowCard,
     Carousel,
     Slide,
     Navigation,
   },
   props: {
-    slideContent: Array,
+    genreList: Array,
   },
   data() {
     return {
@@ -38,13 +36,18 @@ export default {
   :breakpoints="carouselBreakpoints"
   >
     <slide
-      v-for="(show, i) in slideContent"
-      :key="i"
+    v-for="(genre) in genreList"
+    :key="genre"
     >
-      <show-card
-      :showNameProp="show.showName"
-      :showCoverProp="show.showCover"
-      :showIDProp="show.showID"/>
+    <div class="w-full bg-primaryColor block justify-center items-center">
+      <router-link :to="{ name: 'genre', params: { genre: genre } }">
+          <div class="w-full bg-primaryColor block justify-center items-center">
+            <p class="text-white text-center">
+              {{ genre }}
+            </p>
+          </div>
+        </router-link>
+    </div>
     </slide>
     <template #addons>
       <navigation/>
@@ -58,7 +61,7 @@ export default {
   }
 
   .carousel__slide--active {
-    @apply transition duration-500 scale-95 border-primaryColor
+    @apply transition duration-500 scale-95 bg-complementaryColor
     border-4 pr-0 shadow-sm shadow-black;
   }
 
