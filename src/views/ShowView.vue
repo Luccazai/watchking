@@ -29,6 +29,7 @@ export default {
       showRevenue: Number,
       showRevenueCurrency: String,
       showReleaseDate: String,
+      showTrailer: String,
       showGenres: [],
       showCast: [],
     };
@@ -54,9 +55,9 @@ export default {
       return time;
     },
   },
-  async created() {
+  async beforeMount() {
     const getShowInformations = await this.getShowByID(this.$route.params.id, 'base_info');
-    console.log(getShowInformations);
+    console.log('SHOW INFORMATIONS: ', getShowInformations);
 
     this.showTitle = getShowInformations.titleText.text;
 
@@ -111,89 +112,102 @@ export default {
     } else {
       this.showRevenue = null;
     }
+
+    // Trailer
+
+    const trailerRequisition = await this.getShowTrailer(this.$route.params.id);
+    console.log('TRAILER: ', trailerRequisition.trailer);
+    this.showTrailer = trailerRequisition.trailer;
   },
 };
 </script>
 
 <template>
   <main class="dark:text-white">
-    <div class="px-5 grid grid-cols-6 grid-rows-4 md:grid-rows-6 gap-5 h-screen">
-      <div class="row-span-1 col-span-6 flex justify-center items-center">
+    <div class="w-full flex-col justify-center flex align-middle">
+      <div class="flex justify-center items-center my-5">
         <p class="text-3xl text-primaryColor font-semibold">
           {{ showTitle }}
         </p>
       </div>
+      <div class="flex flex-col justify-center
+      items-center md:h-screen w-4/5 md:w-3/5 mx-auto">
+        <div
+        class="h-full md:w-3/4 flex justify-center">
+          <img
+          :src="showCover"
+          :alt="showTitle"
+          class="h-full"
+          />
+        </div>
+      </div>
+      <div class="flex justify-center items-center gap-5 my-4">
+        <template v-if="typeof(showTrailer) !== 'function'">
+          <a
+          v-if="showTrailer !== undefined"
+          :href="showTrailer.replace('embed', 'watch')" target="_blank"
+          class="underline text-primaryColor text-lg">
+            Check out the trailer (funcionando)
+            <i class="text-xs ml-1 fa-solid fa-up-right-from-square"></i>
+          </a>
+          <a
+          v-else
+          target="_blank"
+          :href="`https://www.youtube.com/results?search_query=${showTitle}+trailer`"
+          class="underline text-primaryColor text-lg">
+            Check out the trailer
+            <i class="text-xs ml-1 fa-solid fa-up-right-from-square"></i>
+          </a>
+        </template>
+      </div>
       <div
-      class="row-span-3 col-span-6
-      md:row-span-5 md:col-span-2 md:col-start-3">
-        <img
-        :src="showCover"
-        :alt="showTitle"
-        class="h-full mx-auto"
+      v-if="typeof(showRating) === 'number'"
+      class="flex justify-center items-center gap-5 my-4">
+        <review-stars :rating="showRating"/>
+        <p class="font-semibold">{{ showRating }}/10</p>
+      </div>
+      <div
+      v-if="typeof(showPlot) === 'string'"
+      class="flex justify-center items-center">
+        <p class="text-center px-5 md:w-2/4">{{ showPlot }}</p>
+      </div>
+      <div class="flex justify-center items-center my-5">
+        <watchlist-button
+        class="mx-10 md:w-1/4"
         />
       </div>
     </div>
-    <div class="px-5 grid grid-cols-6 grid-rows-6 gap-5 h-screen">
-      <div
-      class="row-span-1 col-span-6 grid grid-rows-2"
-      v-if="showRating !== null" >
-        <div class="flex justify-center items-center">
-          <review-stars :rating="showRating"/>
-        </div>
-        <div
-        class="flex justify-center items-center">
-          <p class="font-semibold">{{ showRating }}/10</p>
-        </div>
-      </div>
-      <div
-      class="row-span-1 col-span-6 md:col-span-4 md:col-start-2
-      flex justify-center items-center md:text-lg">
-        <p class="text-center h-full">{{ showPlot }}</p>
-      </div>
-      <watchlist-button
-      class="col-span-4 col-start-2 md:col-span-2 md:col-start-3"
-      />
-      <div
-      class="row-span-1 col-span-6 flex justify-center items-center">
+    <div class="w-full flex-col justify-center flex align-middle">
+      <div class="flex justify-center items-center my-5">
         <p class="text-3xl text-primaryColor font-semibold">
           Infos
         </p>
       </div>
-      <div class="row-span-1 col-span-6 grid grid-cols-5">
+      <div class="flex flex-col justify-center items-center my-5">
         <content-block :fieldName="'Type'" :fieldValue="showType"/>
-      </div>
-      <div class="row-span-1 col-span-6 grid grid-cols-5">
+        <template v-if="isSeries()">
+          <content-block :fieldName="'Episodes'" :fieldValue="showEpisodes"/>
+          <content-block :fieldName="'Seasons'" :fieldValue="showSeasons"/>
+          <content-block :fieldName="'Period'" :fieldValue="showPeriod"/>
+        </template>
         <content-block :fieldName="'Release Date'" :fieldValue="showReleaseDate"/>
-      </div>
-    </div>
-    <div class="px-5 grid grid-cols-6 grid-rows-4 gap-5 h-screen"
-    :class="{ 'grid-rows-6': isSeries() }">
-      <div class="row-span-1 col-span-6 grid grid-cols-5">
         <content-block :fieldName="'Runtime'" :fieldValue="showRuntime"/>
-      </div>
-      <div class="row-span-1 col-span-6 grid grid-cols-5">
         <content-block :fieldName="'Genres'" :fieldValue="showGenres"/>
-      </div>
-      <!-- BUDGET -->
-      <div class="row-span-1 col-span-6 grid grid-cols-5">
         <content-block
-        :fieldName="'Budget'"
-        :fieldValue="showBudget"
-        :fieldCurrency="showBudgetCurrency"/>
-      </div>
-      <div class="row-span-1 col-span-6 grid grid-cols-5">
+          :fieldName="'Budget'"
+          :fieldValue="showBudget"
+          :fieldCurrency="showBudgetCurrency"/>
         <content-block
-        :fieldName="'Revenue'"
-        :fieldValue="showRevenue"
-        :fieldCurrency="showRevenueCurrency"/>
-      </div>
-      <!-- SERIES INFO -->
-      <div class="row-span-1 col-span-6 grid grid-cols-5 row-start-1" v-if="isSeries()">
-        <content-block :fieldName="'Episodes'" :fieldValue="showEpisodes"/>
-      </div>
-      <div class="row-span-1 col-span-6 grid grid-cols-5 row-start-2" v-if="isSeries()">
-        <content-block :fieldName="'Seasons'" :fieldValue="showSeasons"/>
+          :fieldName="'Revenue'"
+          :fieldValue="showRevenue"
+          :fieldCurrency="showRevenueCurrency"/>
       </div>
     </div>
   </main>
 </template>
+
+<style scoped>
+  [v-cloak] {
+    display: none;
+  }
+</style>>

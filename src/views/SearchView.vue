@@ -27,9 +27,11 @@ export default {
       return;
     }
 
+    const excluded = ['video', 'videoGame', 'musicVideo', 'tvEpisode',
+      'short', 'tvShort', 'podcastEpisode'];
+
     request.forEach((show) => {
       console.log('SearchView foreach: ', show.titleType.id);
-      const excluded = ['video', 'videoGame', 'musicVideo', 'tvEpisode', 'short', 'tvShort'];
       if (!excluded.includes(show.titleType.id)) {
         this.showList.push(show);
       }
@@ -39,11 +41,12 @@ export default {
 </script>
 
 <template>
-  <main class="md:flex justify-center md:justify-start gap-3 mx-5 flex-wrap">
+  <main class="md:flex justify-center md:justify-evenly gap-3 mx-5
+  flex-wrap divide-y-4 divide-primaryColor divide-opacity-30 md:divide-none">
     <div
     v-for="(show) in showList"
     :key="show.id"
-    class="w-auto h-screen md:h-96">
+    class="w-auto h-2/3 md:h-96 py-3">
       <show-card class="border-4 border-transparent hover:border-4
       hover:border-primaryColor hover:scale-95 transition-transform duration-300"
       :showNameProp="show.titleText.text"

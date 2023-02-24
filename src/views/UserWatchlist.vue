@@ -39,12 +39,11 @@ export default {
 </script>
 
 <template>
-  <main class="flex justify-center md:justify-start gap-3 mx-5 flex-wrap">
+  <main class="flex justify-center md:justify-evenly mx-3 gap-y-3 flex-wrap">
     <div
-    v-for="(show) in showList" :key="show.id"
-    class="w-auto h-96">
+    v-for="(show) in showList" :key="show.id">
       <show-card
-      class="border-4 border-transparent hover:border-4
+      class="border-4 border-transparent hover:border-4 w-full
       hover:border-primaryColor hover:scale-95 transition-transform duration-300"
       :showCoverProp="show.primaryImage"
       :showNameProp="show.titleText.text"

@@ -52,7 +52,7 @@ export default {
   </carousel>
 </template>
 
-<style>
+<style scoped>
   .carousel__slide {
     @apply pr-3;
   }

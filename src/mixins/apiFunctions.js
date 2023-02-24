@@ -101,5 +101,15 @@ export default {
         return err;
       }
     },
+
+    async getShowTrailer(showID) {
+      try {
+        const result = await apiMain.getTrailer(showID);
+        return result.data.results;
+      } catch (err) {
+        console.log(err);
+        return err;
+      }
+    },
   },
 };

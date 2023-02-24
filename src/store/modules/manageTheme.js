@@ -7,6 +7,9 @@ export default {
       state.colorTheme = payload;
     },
   },
+  getters: {
+    getTheme: (state) => state.colorTheme,
+  },
   actions: {
     toggleTheme({ state, commit, dispatch }) {
       if (state.colorTheme === 'light') {

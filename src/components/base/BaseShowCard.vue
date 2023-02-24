@@ -16,6 +16,7 @@ export default {
     return {
       showCover: String,
       hasImage: true,
+      isHomePage: this.$parent.$options.name === 'CarouselSlide',
     };
   },
   async beforeMount() {
@@ -31,7 +32,12 @@ export default {
 
 <template>
   <div
-  class="h-full flex justify-center align-middle relative bg-primaryColor">
+  class="h-full w-full flex justify-center align-middle relative mx-auto"
+  :class="{
+      'md:h-96': !isHomePage,
+      'md:w-[16.5rem]': !isHomePage,
+    }"
+  >
     <card-flag
     class="absolute top-0 right-0"
     :showIDProp="showIDProp"/>
@@ -40,11 +46,12 @@ export default {
       <img
       :src="showCover"
       :alt="showNameProp"
-      :class="{ 'h-3/5': !hasImage }"
-      class="text-white text-xl font-semibold h-full"
+      :class="{ 'h-4/6': !hasImage }"
+      class="text-black dark:text-white text-xl font-semibold
+      h-full w-full object-cover mx-auto"
       />
       <p
-      class="text-white text-xl font-semibold text-center"
+      class="text-black dark:text-white text-xl font-semibold text-center"
       :class="{ 'hidden': hasImage }">
         {{ showNameProp }}
       </p>

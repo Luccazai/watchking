@@ -12,6 +12,11 @@ export default {
     ThemeToggler: TheHeaderToggleTheme,
     LocaleToggler: TheHeaderLocaleToggler,
   },
+  data() {
+    return {
+      drawerOpen: false,
+    };
+  },
   methods: {
     ...mapGetters(['isUserLoggedIn']),
 
@@ -24,6 +29,14 @@ export default {
       if (this.$route.meta.requiresAuth) {
         this.$router.go({ name: 'home' });
       }
+    },
+
+    toggleDrawer() {
+      this.drawerOpen = !this.drawerOpen;
+    },
+
+    getLanguage() {
+      return this.$i18n.locale === 'pt-BR' ? 'Português' : 'English';
     },
   },
 };
@@ -42,7 +55,9 @@ export default {
       </div>
       <div
       class="col-span-1 text-white font-bold text-2xl flex justify-center items-center">
-        <i class="fa-solid fa-bars"></i>
+        <button type="button" @click.prevent="toggleDrawer()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
     </nav>
 
@@ -58,7 +73,7 @@ export default {
       </div>
       <div
       class="col-span-2 w-full text-white font-semibold text-sm flex items-center">
-        <SearchBar/>
+        <SearchBar :idKey="'desktop'"/>
       </div>
       <div
       class="col-span-1 w-full text-white font-semibold text-xl flex items-center justify-center">
@@ -86,4 +101,56 @@ export default {
       </div>
     </nav>
   </header>
+  <transition name="slide">
+    <div
+    v-if="drawerOpen"
+    class="fixed z-50 top-12 flex w-full h-screen backdrop-blur-sm md:hidden">
+      <div class="flex flex-col w-4/5 bg-primaryColorShadow">
+        <div class="flex justify-center w-2/3 bg-blue-400
+        text-white p-2 text-xl mx-auto">
+          <SearchBar :idKey="'mobile'"/>
+        </div>
+        <div class="flex bg-blue-400 text-white p-2 text-xl">
+          <template v-if="!isUserLoggedIn()">
+            <router-link to="/login" @click.prevent="toggleDrawer()">
+              <i class="fa-solid fa-right-to-bracket mr-3"></i> Login
+            </router-link>
+        </template>
+        <template v-else>
+          <button type="button" @click.prevent="logout">
+            <i class="fa-solid fa-door-open mr-3"></i> Logout
+          </button>
+        </template>
+        </div>
+        <div class="flex bg-blue-400 text-white p-2 text-xl">
+          <router-link to="/watchlist" @click.prevent="toggleDrawer()">
+            <i class="fa-solid fa-bookmark mr-3"></i> Watchlist
+          </router-link>
+        </div>
+        <div class="flex bg-blue-400 text-white p-2 text-xl">
+          <theme-toggler @click.prevent="toggleDrawer()"/>
+          <span class="ml-3 capitalize">{{ this.$store.getters.getTheme }}</span>
+        </div>
+        <div class="flex bg-blue-400 text-white p-2 text-xl">
+          <locale-toggler/>
+          <span class="ml-3 capitalize">{{ getLanguage() }}</span>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
+
+<style scoped>
+  .slide-enter-active {
+    @apply backdrop-blur-none;
+    transition: all 0.3s ease-out;
+  }
+  .slide-leave-active {
+    transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+
+  .slide-enter-from,
+  .slide-leave-to {
+    @apply -translate-x-3/4;
+  }
+</style>

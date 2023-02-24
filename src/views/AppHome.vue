@@ -19,7 +19,7 @@ export default {
       genreList: [],
     };
   },
-  async beforeMount() {
+  async mounted() {
     const getTopRatedMovies = await this.getTopRatedMovies();
     getTopRatedMovies.forEach((show) => {
       this.topRatedMovies.push(
@@ -67,83 +67,58 @@ export default {
 </script>
 
 <template>
-  <main
-  class="mx-5 grid grid-cols-6 grid-rows-4">
-    <section
-    class="col-span-6 row-span-1
-    grid grid-rows-5">
-    <div class="row-span-1 grid grid-rows-3">
-        <div class="row-span-1 row-start-2">
-          <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-            Top Rated Movies
-          </p>
-        </div>
-        <div class="row-span-1 row-start-3">
-          <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-            The best movies according to IMBD ranking
-          </p>
-        </div>
+  <main class="m-5 mt-20">
+    <section>
+    <div>
+      <div class="flex flex-col">
+        <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
+          Top Rated Movies
+        </p>
+        <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
+          The best movies according to IMBD ranking
+        </p>
       </div>
-      <div class="row-span-4 grid grid-cols-5">
-        <base-show-slider :slideContent="topRatedMovies" class="col-span-5"/>
-      </div>
+      <base-show-slider :slideContent="topRatedMovies" class="mt-5 md:mt-7"/>
+    </div>
     </section>
-    <section
-    class="col-span-6 row-span-1
-    grid grid-rows-5">
-    <div class="row-span-1 grid grid-rows-3">
-        <div class="row-span-1 row-start-2">
-          <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-            Top Rated Series
-          </p>
-        </div>
-        <div class="row-span-1 row-start-3">
-          <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-            The best series according to IMBD ranking
-          </p>
-        </div>
+    <section class="my-5 md:my-7">
+    <div>
+      <div class="flex flex-col">
+        <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
+          Top Rated Series
+        </p>
+        <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
+          The best series according to IMBD ranking
+        </p>
       </div>
-      <div class="row-span-4 grid grid-cols-5">
-        <base-show-slider :slideContent="topRatedSeries" class="col-span-5"/>
-      </div>
+      <base-show-slider :slideContent="topRatedSeries" class="mt-5 md:mt-7"/>
+    </div>
     </section>
-    <section
-    class="col-span-6 row-span-1
-    grid grid-rows-5">
-      <div class="row-span-1 grid grid-rows-3">
-        <div class="row-span-1 row-start-2">
-          <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-            Everyone is watching
-          </p>
-        </div>
-        <div class="row-span-1 row-start-3">
-          <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-            Top 10 shows of the last weekend
-          </p>
-        </div>
+    <section class="my-5 md:my-7">
+    <div>
+      <div class="flex flex-col">
+        <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
+          Everyone is watching
+        </p>
+        <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
+          Top 10 shows of the last weekend
+        </p>
       </div>
-      <div class="row-span-4 grid grid-cols-5">
-        <base-show-slider :slideContent="topRatedLastWeek" class="col-span-5"/>
-      </div>
+      <base-show-slider :slideContent="topRatedLastWeek" class="mt-5 md:mt-7"/>
+    </div>
     </section>
-    <section
-    class="col-span-6 row-span-1
-    grid grid-rows-5">
-      <div class="row-span-1 grid grid-rows-3">
-        <div class="row-span-1 row-start-2">
-          <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-            Genres
-          </p>
-        </div>
-        <div class="row-span-1 row-start-3">
-          <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-            Explore your favorite genre
-          </p>
-        </div>
+    <section class="my-5 md:my-7">
+    <div>
+      <div class="flex flex-col">
+        <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
+          Genres
+        </p>
+        <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
+          Explore your favorite genre
+        </p>
       </div>
-      <div class="row-span-4 grid grid-cols-5">
-        <base-genre-slider :genreList="genreList" class="col-span-5"/>
-      </div>
+      <base-genre-slider :genreList="genreList" class="mt-5 md:my-7"/>
+    </div>
     </section>
   </main>
 </template>

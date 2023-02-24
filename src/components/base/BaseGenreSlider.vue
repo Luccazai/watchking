@@ -41,8 +41,9 @@ export default {
     >
     <div class="w-full bg-primaryColor block justify-center items-center">
       <router-link :to="{ name: 'genre', params: { genre: genre } }">
-          <div class="w-full bg-primaryColor block justify-center items-center">
-            <p class="text-white text-center">
+          <div class="w-full md:h-[520px] h-[720px]
+          flex justify-center items-center">
+            <p class="text-white text-center text-xl">
               {{ genre }}
             </p>
           </div>
@@ -61,8 +62,8 @@ export default {
   }
 
   .carousel__slide--active {
-    @apply transition duration-500 scale-95 bg-complementaryColor
-    border-4 pr-0 shadow-sm shadow-black;
+    @apply transition duration-500 scale-95 border-cyan-300
+    border-4 pr-0 shadow-sm shadow-black font-semibold;
   }
 
   button.carousel__prev,

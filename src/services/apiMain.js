@@ -8,6 +8,7 @@ export default {
         params:
         {
           exact: 'false',
+          titleType: 'movie',
           page,
         },
       },
@@ -37,7 +38,7 @@ export default {
           genre,
           page,
           endYear: 2022,
-          startYear: 1960,
+          startYear: 1950,
           sort: 'year.decr',
         },
       },
@@ -61,6 +62,18 @@ export default {
   getGenres() {
     const result = api().get(
       '/titles/utils/genres',
+    );
+    return result;
+  },
+
+  getTrailer(showID) {
+    const result = api().get(
+      `/titles/${showID}`,
+      {
+        params: {
+          info: 'trailer',
+        },
+      },
     );
     return result;
   },

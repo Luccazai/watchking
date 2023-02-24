@@ -19,5 +19,6 @@ module.exports = {
     'vuejs-accessibility/label-has-for': 'off',
     'import/no-unresolved': 'off',
     'prefer-destructuring': 'off',
+    'vuejs-accessibility/media-has-caption': 'off',
   },
 };

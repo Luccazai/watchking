@@ -17,6 +17,10 @@ export default {
         userID: this.$store.getters.getUserID,
       };
 
+      if (requisition.userID === undefined) {
+        this.$router.push('/login');
+      }
+
       if (!this.isOnWatchlist) {
         try {
           const response = await this.$store.dispatch('addToWatchlist', requisition);
@@ -92,12 +96,12 @@ export default {
 
 <template>
   <div
-  class="w-full flex justify-center items-center rounded-lg"
+  class="w-full flex justify-center items-center rounded-lg transition-colors duration-500"
   :class="buttonStyle" >
     <button
     type="button"
     @click.prevent="manageWatchlist"
-    class="w-full h-full hover:bg-black hover:bg-opacity-20 transition duration-500">
+    class="w-full h-full py-3">
       <p class="text-white font-semibold text-xl">
         {{ buttonText }}
       </p>

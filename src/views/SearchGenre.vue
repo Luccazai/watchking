@@ -18,8 +18,12 @@ export default {
     paramGenre = paramGenre.charAt(0).toUpperCase() + paramGenre.slice(1);
 
     const result = await this.getShowsByGenre(paramGenre, this.$route.query.page);
-    result.forEach((movie) => {
-      this.showList.push(movie);
+    const excluded = ['video', 'videoGame', 'musicVideo', 'tvEpisode', 'short', 'tvShort'];
+
+    result.forEach((show) => {
+      if (!excluded.includes(show.titleType.id)) {
+        this.showList.push(show);
+      }
     });
   },
 };
