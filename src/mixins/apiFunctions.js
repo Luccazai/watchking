@@ -54,7 +54,7 @@ export default {
 
     async getCast(showID) {
       try {
-        const result = await apiMain.getShowByID(showID, 'extendedCast');
+        const result = await apiMain.getShowByID(showID, 'principalCast');
         return result.data.results;
       } catch (err) {
         console.log(err);

@@ -26,11 +26,11 @@ export default {
 </script>
 
 <template>
-  <button type="button" @click.prevent="toggleThemeHeader">
+  <div @click.prevent="toggleThemeHeader">
     <i class="fa-solid fa-lightbulb"
     :class="{
       'fa-moon': isDark,
     }"></i>
     <!-- fa-moon and fa-lightbulb -->
-  </button>
+  </div>
 </template>

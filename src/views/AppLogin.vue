@@ -34,7 +34,7 @@ export default {
       </button>
     </div>
     <div class="bg-primaryColor w-full md:w-2/5 mx-auto p-5 h-screen md:h-1/2">
-      <transition-group name="slide">
+      <transition-group name="fade" mode="out-in">
         <form-register v-if="formTab == 'register'"/>
         <form-login v-if="formTab === 'login'"/>
       </transition-group>
@@ -43,16 +43,15 @@ export default {
 </template>
 
 <style scoped>
-  .slide-enter-active {
-    @apply backdrop-blur-none;
+  .fade-enter-active {
     transition: all 0.3s ease-out;
   }
-  .slide-leave-active {
+  .fade-leave-active {
     transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
   }
 
-  .slide-enter-from,
-  .slide-leave-to {
-    @apply translate-x-full;
+  .fade-enter-from,
+  .fade-leave-to {
+    @apply translate-x-full absolute;
   }
 </style>

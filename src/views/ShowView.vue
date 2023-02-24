@@ -4,6 +4,7 @@ import apiFunctions from '@/mixins/apiFunctions';
 import ShowViewWatchListButton from '@/components/ShowViewWatchListButton.vue';
 import ReviewStars from '@/components/ReviewStars.vue';
 import ShowViewBlock from '@/components/ShowViewBlock.vue';
+import ShowCastSlider from '@/components/ShowCastSlider.vue';
 
 export default {
   name: 'showView',
@@ -12,6 +13,7 @@ export default {
     WatchlistButton: ShowViewWatchListButton,
     ReviewStars,
     ContentBlock: ShowViewBlock,
+    ShowCastSlider,
   },
   data() {
     return {
@@ -201,6 +203,9 @@ export default {
           :fieldName="'Revenue'"
           :fieldValue="showRevenue"
           :fieldCurrency="showRevenueCurrency"/>
+      </div>
+      <div class="my-5">
+        <show-cast-slider/>
       </div>
     </div>
   </main>

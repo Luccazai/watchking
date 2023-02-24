@@ -2,14 +2,14 @@
 
 import apiFunctions from '@/mixins/apiFunctions';
 import BaseShowSlider from '@/components/base/BaseShowSlider.vue';
-import BaseGenreSlider from '@/components/base/BaseGenreSlider.vue';
+import HomeGenreSlider from '@/components/HomeGenreSlider.vue';
 
 export default {
   name: 'HomeView',
   mixins: [apiFunctions],
   components: {
     BaseShowSlider,
-    BaseGenreSlider,
+    HomeGenreSlider,
   },
   data() {
     return {
@@ -117,7 +117,7 @@ export default {
           Explore your favorite genre
         </p>
       </div>
-      <base-genre-slider :genreList="genreList" class="mt-5 md:my-7"/>
+      <home-genre-slider :genreList="genreList" class="mt-5 md:my-7"/>
     </div>
     </section>
   </main>

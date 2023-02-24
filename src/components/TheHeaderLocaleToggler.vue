@@ -16,10 +16,10 @@ export default {
 </script>
 
 <template>
-  <div class="text-black flex">
+  <div class="text-black flex" @click.prevent="toggleLanguage">
     <div class="h-6 w-6 block relative bg-cover"
     :class="$i18n.locale"
-    @click.prevent="toggleLanguage"></div>
+    ></div>
   </div>
 </template>
 

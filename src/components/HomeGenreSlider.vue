@@ -6,7 +6,7 @@ import {
 } from 'vue3-carousel';
 
 export default {
-  name: 'BaseShowSlider',
+  name: 'HomeGenreSlider',
   components: {
     Carousel,
     Slide,
@@ -56,7 +56,7 @@ export default {
   </carousel>
 </template>
 
-<style>
+<style scoped>
   .carousel__slide {
     @apply pr-3;
   }

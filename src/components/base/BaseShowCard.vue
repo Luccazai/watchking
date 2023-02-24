@@ -46,7 +46,7 @@ export default {
       <img
       :src="showCover"
       :alt="showNameProp"
-      :class="{ 'h-4/6': !hasImage }"
+      :class="{ 'h-3/6': !hasImage }"
       class="text-black dark:text-white text-xl font-semibold
       h-full w-full object-cover mx-auto"
       />

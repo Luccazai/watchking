@@ -44,7 +44,7 @@ export default {
 
 <template>
   <header
-  class="flex items-center bg-primaryColor fixed top-0 w-full h-12 z-30">
+  class="flex items-center bg-primaryColor fixed top-0 w-screen h-12 z-30">
     <nav
     class="md:hidden grid grid-cols-2 grid-rows-1 w-full">
       <div
@@ -105,12 +105,12 @@ export default {
     <div
     v-if="drawerOpen"
     class="fixed z-50 top-12 flex w-full h-screen backdrop-blur-sm md:hidden">
-      <div class="flex flex-col w-4/5 bg-primaryColorShadow">
-        <div class="flex justify-center w-2/3 bg-blue-400
+      <div class="flex flex-col w-4/5 bg-primaryColorShadow text-2xl">
+        <div class="flex justify-center w-2/3 my-2
         text-white p-2 text-xl mx-auto">
           <SearchBar :idKey="'mobile'"/>
         </div>
-        <div class="flex bg-blue-400 text-white p-2 text-xl">
+        <div class="flex my-2 text-white p-2 text-xl">
           <template v-if="!isUserLoggedIn()">
             <router-link to="/login" @click.prevent="toggleDrawer()">
               <i class="fa-solid fa-right-to-bracket mr-3"></i> Login
@@ -122,18 +122,20 @@ export default {
           </button>
         </template>
         </div>
-        <div class="flex bg-blue-400 text-white p-2 text-xl">
+        <div class="flex my-2 text-white p-2 text-xl">
           <router-link to="/watchlist" @click.prevent="toggleDrawer()">
             <i class="fa-solid fa-bookmark mr-3"></i> Watchlist
           </router-link>
         </div>
-        <div class="flex bg-blue-400 text-white p-2 text-xl">
-          <theme-toggler @click.prevent="toggleDrawer()"/>
-          <span class="ml-3 capitalize">{{ this.$store.getters.getTheme }}</span>
+        <div class="flex my-2 text-white p-2 text-xl">
+          <theme-toggler
+          class="w-3/4 absolute"
+          @click.prevent="toggleDrawer()"/>
+          <span class="ml-8 capitalize">{{ this.$store.getters.getTheme }}</span>
         </div>
-        <div class="flex bg-blue-400 text-white p-2 text-xl">
-          <locale-toggler/>
-          <span class="ml-3 capitalize">{{ getLanguage() }}</span>
+        <div class="flex my-2 text-white p-2 text-xl">
+          <locale-toggler class="w-3/4 absolute"/>
+          <span class="ml-8 capitalize">{{ getLanguage() }}</span>
         </div>
       </div>
     </div>
