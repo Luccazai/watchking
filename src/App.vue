@@ -12,16 +12,18 @@ export default {
     ...mapGetters(['getLanguage', 'isUserLoggedIn']),
   },
   methods: {
-    ...mapActions(['activateTheme', 'loadLanguage']),
+    ...mapActions(['activateTheme', 'loadLanguage',
+      'toggleTheme', 'changeLanguage']),
   },
-  async created() {
+  async beforeMount() {
     // If theme isn't set on Local Storage
-    if (!localStorage.key('colorTheme')) {
-      localStorage.setItem('colorTheme', 'light');
-    }
 
-    if (!localStorage.key('language')) {
-      localStorage.setItem('language', 'en');
+    console.log('THEME: ', window.localStorage.key('colorTheme'));
+    console.log('LANG: ', window.localStorage.key('language'));
+
+    if (window.localStorage.key('colorTheme') === null) {
+      this.toggleTheme();
+      this.changeLanguage('en');
     }
 
     this.activateTheme();

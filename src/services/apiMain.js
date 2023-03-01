@@ -1,14 +1,14 @@
 import api from './apiBase';
 
 export default {
-  searchShow(showName, page) {
+  searchShow(showName, page, titleType) {
     const result = api().get(
       `/titles/search/title/${showName}`,
       {
         params:
         {
           exact: 'false',
-          titleType: 'movie',
+          titleType,
           page,
         },
       },
@@ -29,7 +29,7 @@ export default {
     return result;
   },
 
-  getShowsByGenre(genre, page) {
+  getShowsByGenre(genre, page, titleType) {
     const result = api().get(
       '/titles',
       {
@@ -40,6 +40,7 @@ export default {
           endYear: 2022,
           startYear: 1950,
           sort: 'year.decr',
+          titleType,
         },
       },
     );

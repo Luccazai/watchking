@@ -18,40 +18,47 @@ export default {
 </script>
 
 <template>
-  <main class="w-full md:pt-3 text-white text-2xl md:text-lg">
-    <div class="w-full md:w-2/5 grid grid-cols-2 gap-0 mx-auto">
+  <main class="w-screen md:pt-3 text-white text-2xl md:text-lg h-screen
+  overflow-hidden fixed top-0 left-0 border-collapse">
+    <div class="w-full md:w-2/5 pt-12 md:pt-16 grid grid-cols-2 gap-0 mx-auto">
       <button type="button"
       class="col-span-1 bg-primaryColorShadow p-6"
-      :class="{ 'bg-complementaryColor': formTab === 'login' }"
+      :class="{ 'bg-green-600': formTab === 'login' }"
       @click.prevent="formTab = 'login'">
         Login
       </button>
       <button type="button"
       class="col-span-1 bg-primaryColorShadow p-6"
-      :class="{ 'bg-complementaryColor': formTab === 'register' }"
+      :class="{ 'bg-green-600': formTab === 'register' }"
       @click.prevent="formTab = 'register'">
         Register
       </button>
     </div>
-    <div class="bg-primaryColor w-full md:w-2/5 mx-auto p-5 h-screen md:h-1/2">
-      <transition-group name="fade" mode="out-in">
-        <form-register v-if="formTab == 'register'"/>
-        <form-login v-if="formTab === 'login'"/>
-      </transition-group>
+    <div class="bg-primaryColor w-full md:w-2/5 mx-auto p-5 h-screen md:h-2/3">
+      <transition name="slide" mode="out-in">
+        <div v-if="formTab == 'register'">
+          <form-register/>
+        </div>
+        <div v-else>
+          <form-login/>
+        </div>
+      </transition>
     </div>
   </main>
 </template>
 
 <style scoped>
-  .fade-enter-active {
-    transition: all 0.3s ease-out;
+  .slide-enter-active {
+    transition: all 0.5s ease-out;
+    opacity: 1;
   }
-  .fade-leave-active {
-    transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+  .slide-leave-active {
+    transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+    opacity: 0;
   }
 
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply translate-x-full absolute;
+  .slide-enter-from,
+  .slide-leave-to {
+    @apply opacity-0 translate-x-full absolute;
   }
 </style>

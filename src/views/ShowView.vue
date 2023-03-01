@@ -34,6 +34,8 @@ export default {
       showTrailer: String,
       showGenres: [],
       showCast: [],
+      requestIsFinished: false,
+      showExists: true,
     };
   },
   methods: {
@@ -59,16 +61,25 @@ export default {
   },
   async beforeMount() {
     const getShowInformations = await this.getShowByID(this.$route.params.id, 'base_info');
-    console.log('SHOW INFORMATIONS: ', getShowInformations);
+
+    if (getShowInformations === null) {
+      this.showExists = false;
+      return;
+    }
 
     this.showTitle = getShowInformations.titleText.text;
 
     const plot = getShowInformations.plot.plotText;
     this.showPlot = plot === null ? '' : plot.plainText;
 
-    this.showRuntime = this.convertRuntime(getShowInformations.runtime.seconds);
+    this.showRuntime = getShowInformations.runtime !== null
+      ? this.convertRuntime(getShowInformations.runtime.seconds)
+      : '-';
+
     this.showType = getShowInformations.titleType.text;
-    this.showReleaseDate = `${getShowInformations.releaseDate.day}/${getShowInformations.releaseDate.month}/${getShowInformations.releaseDate.year}`;
+    this.showReleaseDate = getShowInformations.releaseDate !== null
+      ? `${getShowInformations.releaseDate.day}/${getShowInformations.releaseDate.month}/${getShowInformations.releaseDate.year}`
+      : '-';
 
     // Genres set up
 
@@ -105,30 +116,31 @@ export default {
       this.showBudget = productionBudget.budget.amount;
       this.showBudgetCurrency = productionBudget.budget.currency;
     } else {
-      this.showBudget = null;
+      this.showBudget = '-';
     }
 
     if (worldwideGross !== null) {
       this.showRevenue = worldwideGross.total.amount;
       this.showRevenueCurrency = worldwideGross.total.currency;
     } else {
-      this.showRevenue = null;
+      this.showRevenue = '-';
     }
 
     // Trailer
 
     const trailerRequisition = await this.getShowTrailer(this.$route.params.id);
-    console.log('TRAILER: ', trailerRequisition.trailer);
     this.showTrailer = trailerRequisition.trailer;
+
+    this.requestIsFinished = true;
   },
 };
 </script>
 
 <template>
-  <main class="dark:text-white">
+  <main class="dark:text-white" v-if="requestIsFinished">
     <div class="w-full flex-col justify-center flex align-middle">
       <div class="flex justify-center items-center my-5">
-        <p class="text-3xl text-primaryColor font-semibold">
+        <p class="text-3xl text-primaryColor font-semibold text-center">
           {{ showTitle }}
         </p>
       </div>
@@ -149,7 +161,7 @@ export default {
           v-if="showTrailer !== undefined"
           :href="showTrailer.replace('embed', 'watch')" target="_blank"
           class="underline text-primaryColor text-lg">
-            Check out the trailer (funcionando)
+            Check out the trailer
             <i class="text-xs ml-1 fa-solid fa-up-right-from-square"></i>
           </a>
           <a
@@ -209,10 +221,18 @@ export default {
       </div>
     </div>
   </main>
-</template>
 
-<style scoped>
-  [v-cloak] {
-    display: none;
-  }
-</style>>
+  <!-- If show doesnt exists -->
+
+  <template v-if="!showExists">
+    <div class="w-2/3 flex flex-col justify-center mx-auto">
+      <p class="text-2xl md:text-4xl text-primaryColor text-center my-5">
+        This show does not exits
+      </p>
+      <img
+      src="https://media3.giphy.com/media/Bp3dFfoqpCKFyXuSzP/giphy.gif?cid=ecf05e47n5to1gfxke7lvbl12095e4gv2s2a5g3sx9l0am0v&rid=giphy.gif&ct=g"
+      alt="GIF"
+      class="mx-auto md:h-[35rem] w-full md:w-4/5"/>
+    </div>
+  </template>
+</template>

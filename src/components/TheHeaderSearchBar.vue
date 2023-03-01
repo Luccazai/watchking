@@ -14,6 +14,12 @@ export default {
       });
 
       document.getElementById(this.idKey).value = '';
+
+      console.log(this.$parent.$parent.$options);
+
+      if (this.$parent.$options.name === 'BaseTransition') {
+        this.$emit('toggleDrawer');
+      }
     },
   },
 };
@@ -25,7 +31,8 @@ export default {
     type="text"
     class="w-full text-black text-lg font-normal
     pl-1 py-0.5 outline-none rounded-xl"
-    :id="idKey"/>
+    :id="idKey"
+    @keyup.enter="search"/>
     <button
       class="text-primaryColor hover:text-primaryColorShadow
       px-1 text-lg transition duration-500"

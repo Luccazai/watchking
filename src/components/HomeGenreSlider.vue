@@ -40,7 +40,7 @@ export default {
     :key="genre"
     >
     <div class="w-full bg-primaryColor block justify-center items-center">
-      <router-link :to="{ name: 'genre', params: { genre: genre } }">
+      <router-link :to="{ name: 'genre', params: { genre: genre }, query: { page: 1 } }">
           <div class="w-full md:h-[520px] h-[720px]
           flex justify-center items-center">
             <p class="text-white text-center text-xl">

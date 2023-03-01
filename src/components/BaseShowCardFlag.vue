@@ -13,6 +13,10 @@ export default {
   },
   methods: {
     async manageWatchlist() {
+      if (!this.$store.getters.isUserLoggedIn) {
+        return;
+      }
+
       const requisition = {
         showID: this.showIDProp,
         userID: this.$store.getters.getUserID,

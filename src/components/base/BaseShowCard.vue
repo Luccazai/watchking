@@ -32,8 +32,10 @@ export default {
 
 <template>
   <div
-  class="h-full w-full flex justify-center align-middle relative mx-auto"
+  class="w-auto flex justify-center align-middle relative mx-auto"
   :class="{
+      'h-full': isHomePage,
+      'h-3/4': !isHomePage,
       'md:h-96': !isHomePage,
       'md:w-[16.5rem]': !isHomePage,
     }"
@@ -46,7 +48,7 @@ export default {
       <img
       :src="showCover"
       :alt="showNameProp"
-      :class="{ 'h-3/6': !hasImage }"
+      :class="{ 'h-2/5': !hasImage }"
       class="text-black dark:text-white text-xl font-semibold
       h-full w-full object-cover mx-auto"
       />

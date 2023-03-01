@@ -48,13 +48,13 @@ export default {
     <nav
     class="md:hidden grid grid-cols-2 grid-rows-1 w-full">
       <div
-      class="col-span-1 w-full text-white font-bold text-2xl flex justify-center">
+      class="col-span-1 w-full text-white font-bold text-2xl flex justify-start ml-4">
         <router-link to="/">
           WatchKing
         </router-link>
       </div>
       <div
-      class="col-span-1 text-white font-bold text-2xl flex justify-center items-center">
+      class="col-span-1 text-white font-bold text-2xl flex justify-end items-center mr-4">
         <button type="button" @click.prevent="toggleDrawer()">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -77,9 +77,11 @@ export default {
       </div>
       <div
       class="col-span-1 w-full text-white font-semibold text-xl flex items-center justify-center">
-      <router-link to="/watchlist">
-        Watchlist
-      </router-link>
+        <template v-if="isUserLoggedIn()">
+          <router-link to="/watchlist">
+            Watchlist
+          </router-link>
+        </template>
       </div>
       <div
       class="col-span-1 w-full text-white font-semibold text-xl flex items-center justify-around">
@@ -101,41 +103,49 @@ export default {
       </div>
     </nav>
   </header>
+
+  <!-- Mobile Drawer -->
+
   <transition name="slide">
     <div
     v-if="drawerOpen"
-    class="fixed z-50 top-12 flex w-full h-screen backdrop-blur-sm md:hidden">
+    class="fixed z-50 top-12 flex w-full h-screen
+    backdrop-blur-sm md:hidden">
       <div class="flex flex-col w-4/5 bg-primaryColorShadow text-2xl">
-        <div class="flex justify-center w-2/3 my-2
+        <div class="flex justify-center w-4/5 my-2
         text-white p-2 text-xl mx-auto">
-          <SearchBar :idKey="'mobile'"/>
+          <SearchBar @toggleDrawer="toggleDrawer" :idKey="'mobile'"/>
         </div>
-        <div class="flex my-2 text-white p-2 text-xl">
-          <template v-if="!isUserLoggedIn()">
+        <template v-if="!isUserLoggedIn()">
+          <div class="flex my-2 text-white p-2 text-2xl ml-4">
             <router-link to="/login" @click.prevent="toggleDrawer()">
               <i class="fa-solid fa-right-to-bracket mr-3"></i> Login
             </router-link>
+          </div>
         </template>
-        <template v-else>
-          <button type="button" @click.prevent="logout">
-            <i class="fa-solid fa-door-open mr-3"></i> Logout
-          </button>
+        <template v-if="isUserLoggedIn()">
+          <div class="flex my-2 text-white p-2 text-2xl ml-4">
+            <router-link to="/watchlist" @click.prevent="toggleDrawer()">
+              <i class="fa-solid fa-bookmark mr-3"></i> Watchlist
+            </router-link>
+          </div>
         </template>
-        </div>
-        <div class="flex my-2 text-white p-2 text-xl">
-          <router-link to="/watchlist" @click.prevent="toggleDrawer()">
-            <i class="fa-solid fa-bookmark mr-3"></i> Watchlist
-          </router-link>
-        </div>
-        <div class="flex my-2 text-white p-2 text-xl">
+        <div class="flex my-2 text-white p-2 text-2xl ml-4">
           <theme-toggler
           class="w-3/4 absolute"
           @click.prevent="toggleDrawer()"/>
           <span class="ml-8 capitalize">{{ this.$store.getters.getTheme }}</span>
         </div>
-        <div class="flex my-2 text-white p-2 text-xl">
+        <div class="flex my-2 text-white p-2 text-2xl ml-4">
           <locale-toggler class="w-3/4 absolute"/>
           <span class="ml-8 capitalize">{{ getLanguage() }}</span>
+        </div>
+        <div class="flex my-2 text-white p-2 text-2xl ml-4">
+          <template v-if="isUserLoggedIn()">
+            <button type="button" @click.prevent="logout">
+              <i class="fa-solid fa-door-open mr-3"></i> Logout
+            </button>
+          </template>
         </div>
       </div>
     </div>

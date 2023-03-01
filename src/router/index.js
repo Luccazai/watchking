@@ -7,8 +7,10 @@ import AppLogin from '@/views/AppLogin.vue';
 import ShowView from '@/views/ShowView.vue';
 import UserWatchlist from '@/views/UserWatchlist.vue';
 
-import SearchView from '@/views/SearchView.vue';
-import SearchGenre from '@/views/SearchGenre.vue';
+import AppShowSearch from '@/views/AppShowSearch.vue';
+import AppGenreSearch from '@/views/AppGenreSearch.vue';
+
+import PageNotFound from '@/views/PageNotFound.vue';
 
 const routes = [
   {
@@ -40,12 +42,16 @@ const routes = [
   {
     path: '/search/:title',
     name: 'search',
-    component: SearchView,
+    component: AppShowSearch,
   },
   {
     path: '/genre/:genre',
     name: 'genre',
-    component: SearchGenre,
+    component: AppGenreSearch,
+  },
+  {
+    path: '/:catchAll(.*)*',
+    component: PageNotFound,
   },
 ];
 

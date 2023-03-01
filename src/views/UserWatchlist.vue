@@ -39,9 +39,12 @@ export default {
 </script>
 
 <template>
-  <main class="flex justify-center md:justify-evenly mx-3 gap-y-3 flex-wrap">
+  <main class="flex justify-center md:justify-evenly mx-3 flex-wrap
+  divide-y-4 divide-primaryColor divide-opacity-30 md:divide-none">
     <div
-    v-for="(show) in showList" :key="show.id">
+    v-for="(show) in showList"
+    :key="show.id"
+    class="py-3">
       <show-card
       class="border-4 border-transparent hover:border-4 w-full
       hover:border-primaryColor hover:scale-95 transition-transform duration-300"

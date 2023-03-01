@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       castArray: [],
+      hasCast: true,
       carouselBreakpoints: {
         768: {
           itemsToShow: 4,
@@ -28,21 +29,22 @@ export default {
   },
   async beforeMount() {
     let getCast = await this.getCast(this.$route.params.id);
-    getCast = getCast.principalCast[0].credits;
+    console.log('CAST: ', getCast);
+    getCast = getCast.cast.edges;
     console.log(getCast);
 
-    if (getCast === null) {
-      return;
+    if (getCast.length === 0) {
+      this.hasCast = false;
     }
 
     getCast.forEach((member) => {
       this.castArray.push(
         {
-          memberName: member.name.nameText.text,
-          memberImage: member.name.primaryImage !== null
-            ? member.name.primaryImage.url
+          memberName: member.node.name.nameText.text,
+          memberImage: member.node.name.primaryImage !== null
+            ? member.node.name.primaryImage.url
             : 'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png',
-          memberCharacters: member.characters,
+          memberCharacters: member.node.characters,
         },
       );
     });
@@ -52,6 +54,7 @@ export default {
 </script>
 
 <template>
+  <template v-if="hasCast">
   <carousel
   :items-to-show="1"
   :wrap-around="true"
@@ -67,7 +70,7 @@ export default {
           <img
           :src="member.memberImage"
           :alt="member.memberName"
-          class="w-full h-full"
+          class="w-full h-full object-cover"
           />
         </div>
         <div class="bg-primaryColorShadow
@@ -90,16 +93,15 @@ export default {
       <navigation/>
     </template>
   </carousel>
+  </template>
 </template>
 
-<style>
+<style scoped>
   .carousel__slide {
     @apply md:pr-3;
   }
 
-  .carousel__prev,
-  .carousel__next {
-    @apply text-primaryColor w-8 h-8 rounded-full z-20 bg-white
-    hover:text-green-700 hover:bg-slate-100 border-2 border-primaryColorShadow;
+  .carousel__slide--active {
+    @apply scale-100 border-none;
   }
 </style>

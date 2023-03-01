@@ -4,8 +4,20 @@ export default {
   methods: {
     async getSearchResults(showName, page) {
       try {
-        const result = await apiMain.searchShow(showName, page);
-        return result.data.results;
+        const resultMovies = await apiMain.searchShow(showName, page, 'movie');
+        const resultSeries = await apiMain.searchShow(showName, page, 'tvSeries');
+        const result = [];
+
+        resultMovies.data.results.forEach((movie) => {
+          result.push(movie);
+        });
+
+        resultSeries.data.results.forEach((serie) => {
+          result.push(serie);
+        });
+
+        console.log('AMBOS: ', result);
+        return result;
       } catch (err) {
         console.log(err);
         return err;
@@ -34,8 +46,19 @@ export default {
 
     async getShowsByGenre(genre, page) {
       try {
-        const result = await apiMain.getShowsByGenre(genre, page);
-        return result.data.results;
+        const resultMovies = await apiMain.getShowsByGenre(genre, page, 'movie');
+        const resultSeries = await apiMain.getShowsByGenre(genre, page, 'tvSeries');
+        const result = [];
+
+        resultMovies.data.results.forEach((movie) => {
+          result.push(movie);
+        });
+
+        resultSeries.data.results.forEach((serie) => {
+          result.push(serie);
+        });
+
+        return result;
       } catch (err) {
         console.log(err);
         return err;
@@ -54,7 +77,7 @@ export default {
 
     async getCast(showID) {
       try {
-        const result = await apiMain.getShowByID(showID, 'principalCast');
+        const result = await apiMain.getShowByID(showID, 'extendedCast');
         return result.data.results;
       } catch (err) {
         console.log(err);

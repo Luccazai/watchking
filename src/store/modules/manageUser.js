@@ -48,6 +48,8 @@ export default {
       );
 
       commit('toggleAuthState');
+      console.log(auth.currentUser);
+      window.location.reload();
     },
 
     init_login({ commit }) {
@@ -61,6 +63,7 @@ export default {
     async logout({ commit }) {
       await signOut(auth);
       commit('toggleAuthState');
+      window.location.reload();
       this.$router.push('/');
     },
   },
