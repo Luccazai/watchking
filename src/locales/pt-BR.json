@@ -1,0 +1,47 @@
+{
+  "header": {
+    "login": "Entrar",
+    "logout": "Sair",
+    "watchlist": "Minha Lista"
+  },
+  "home": {
+    "everyoneIsWatching": "Todo mundo está assistindo",
+    "everyoneIsWatchingDescription": "Top 10 filmes e séries mais assistidas da última semana",
+    "genres": "Gêneros",
+    "genresDescription": "Explore seu gênero favorito",
+    "topRatedMovies": "Filmes Mais Bem Avaliados",
+    "topRatedMoviesDescription": "Os melhores filmes de acordo com o IMDB",
+    "topRatedSeries": "Séries Mais Bem Avaliadas",
+    "topRatedSeriesDescription": "As melhores séries de acordo com o IMDB"
+  },
+  "infos": {
+    "as": "como",
+    "budget": "Orçamento",
+    "cast": "Elenco",
+    "genres": "Gêneros",
+    "infos": "Sobre",
+    "releaseDate": "Data de Lançamento",
+    "revenue": "Faturamento",
+    "runtime": "Duração",
+    "trailer": "Confira o trailer",
+    "type": "Tipo"
+  },
+  "login": {
+    "alreadyRegistered": "Este email já está em uso.",
+    "confirmPassword": "Confirmar Senha",
+    "login": "Entrar",
+    "name": "Nome",
+    "password": "Senha",
+    "register": "Registrar-se",
+    "submit": "Enviar",
+    "submitting": "Enviando suas credenciais...",
+    "wrongCredentials": "Credenciais incorretas, por favor confira e tente novamente."
+  },
+  "theme": {
+    "dark": "Escuro",
+    "light": "Claro"
+  },
+  "validationsMessages": {
+    "required": "Esse campo é obrigatório."
+  }
+}

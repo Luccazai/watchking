@@ -37,7 +37,6 @@ export default {
         {
           genre,
           page,
-          endYear: 2022,
           startYear: 1950,
           sort: 'year.decr',
           titleType,

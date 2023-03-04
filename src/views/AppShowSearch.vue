@@ -16,6 +16,7 @@ export default {
       showList: [],
       requestIsFinished: false,
       noShowFound: false,
+      hasNextPage: false,
     };
   },
   async beforeMount() {
@@ -26,13 +27,14 @@ export default {
 
     console.log(request);
 
-    if (request.length === 0) {
+    if (request[0].length === 0) {
       this.noShowFound = true;
       console.log('No show found');
       return;
     }
 
-    this.showList = request;
+    this.showList = request[0];
+    this.hasNextPage = request[1];
     this.requestIsFinished = true;
   },
 };
@@ -52,7 +54,6 @@ export default {
         :showCoverProp="show.primaryImage"
         :showIDProp="show.id"/>
       </div>
-      <page-navigator v-if="requestIsFinished"/>
     </template>
     <template v-else>
       <div class="text-primaryColor flex justify-center flex-col w-2/3 mx-auto">
@@ -66,4 +67,9 @@ export default {
       </div>
     </template>
   </main>
+  <page-navigator
+  class="mx-auto mt-10 my-6"
+  v-if="requestIsFinished"
+  :hasNext="hasNextPage"
+  />
 </template>

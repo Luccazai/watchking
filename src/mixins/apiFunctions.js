@@ -16,8 +16,11 @@ export default {
           result.push(serie);
         });
 
-        console.log('AMBOS: ', result);
-        return result;
+        const hasNext = resultMovies.data.next !== null && resultSeries.data.next !== null;
+
+        const returnResults = [result, hasNext];
+
+        return returnResults;
       } catch (err) {
         console.log(err);
         return err;
@@ -58,7 +61,11 @@ export default {
           result.push(serie);
         });
 
-        return result;
+        const hasNext = resultMovies.data.next !== null && resultSeries.data.next !== null;
+
+        const returnResults = [result, hasNext];
+
+        return returnResults;
       } catch (err) {
         console.log(err);
         return err;

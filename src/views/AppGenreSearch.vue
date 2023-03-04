@@ -13,6 +13,8 @@ export default {
   data() {
     return {
       showList: [],
+      requestIsFinished: false,
+      hasNextPage: false,
     };
   },
   async beforeMount() {
@@ -20,7 +22,10 @@ export default {
     paramGenre = paramGenre.charAt(0).toUpperCase() + paramGenre.slice(1);
 
     const result = await this.getShowsByGenre(paramGenre, this.$route.query.page);
-    this.showList = result;
+    console.log('GENRE SearCH resuLTS: ', result);
+    this.showList = result[0];
+    this.hasNextPage = result[1];
+    this.requestIsFinished = true;
   },
 };
 </script>
@@ -38,6 +43,9 @@ export default {
       :showCoverProp="show.primaryImage"
       :showIDProp="show.id"/>
     </div>
-    <page-navigator/>
+    <page-navigator
+    class="mx-auto mt-10 my-6"
+    v-if="requestIsFinished"
+    :hasNext="hasNextPage"/>
   </main>
 </template>

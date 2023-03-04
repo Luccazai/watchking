@@ -18,16 +18,17 @@ export default {
   async beforeMount() {
     // If theme isn't set on Local Storage
 
-    console.log('THEME: ', window.localStorage.key('colorTheme'));
-    console.log('LANG: ', window.localStorage.key('language'));
+    console.log('THEME: ', localStorage.getItem('colorTheme'));
+    console.log('LANG: ', localStorage.getItem('language'));
 
-    if (window.localStorage.key('colorTheme') === null) {
+    if (localStorage.key('colorTheme') === null) {
       this.toggleTheme();
       this.changeLanguage('en');
     }
 
     this.activateTheme();
     this.$i18n.locale = this.getLanguage;
+    console.log('LANG: ', this.$i18n.locale);
 
     console.log('Is Logged? ', this.isUserLoggedIn);
     await this.$store.dispatch('init_login');

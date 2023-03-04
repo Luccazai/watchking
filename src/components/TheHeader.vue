@@ -26,9 +26,7 @@ export default {
         route: this.$route,
       });
 
-      if (this.$route.meta.requiresAuth) {
-        this.$router.go({ name: 'home' });
-      }
+      this.$router.push('/');
     },
 
     toggleDrawer() {
@@ -46,7 +44,7 @@ export default {
   <header
   class="flex items-center bg-primaryColor fixed top-0 w-screen h-12 z-30">
     <nav
-    class="md:hidden grid grid-cols-2 grid-rows-1 w-full">
+    class="lg:hidden grid grid-cols-2 grid-rows-1 w-full">
       <div
       class="col-span-1 w-full text-white font-bold text-2xl flex justify-start ml-4">
         <router-link to="/">
@@ -64,7 +62,7 @@ export default {
     <!-- Nav for desktop -->
 
     <nav
-    class="hidden md:grid grid-cols-8 gap-5 grid-rows-1 w-full">
+    class="hidden lg:grid grid-cols-8 gap-5 grid-rows-1 w-full">
       <div
       class="col-span-2 w-full text-white font-bold text-4xl flex justify-left ml-5">
         <router-link to="/">
@@ -79,7 +77,7 @@ export default {
       class="col-span-1 w-full text-white font-semibold text-xl flex items-center justify-center">
         <template v-if="isUserLoggedIn()">
           <router-link to="/watchlist">
-            Watchlist
+            {{ $t('header.watchlist') }}
           </router-link>
         </template>
       </div>
@@ -92,12 +90,12 @@ export default {
       class="col-span-2 w-full text-white font-semibold text-xl flex items-center justify-center">
         <template v-if="!isUserLoggedIn()">
           <router-link to="/login">
-            Login
+            {{ $t('header.login') }}
           </router-link>
         </template>
         <template v-else>
           <button type="button" @click.prevent="logout">
-            Logout
+            {{ $t('header.logout') }}
           </button>
         </template>
       </div>
@@ -110,7 +108,7 @@ export default {
     <div
     v-if="drawerOpen"
     class="fixed z-50 top-12 flex w-full h-screen
-    backdrop-blur-sm md:hidden">
+    backdrop-blur-sm lg:hidden">
       <div class="flex flex-col w-4/5 bg-primaryColorShadow text-2xl">
         <div class="flex justify-center w-4/5 my-2
         text-white p-2 text-xl mx-auto">
@@ -119,14 +117,14 @@ export default {
         <template v-if="!isUserLoggedIn()">
           <div class="flex my-2 text-white p-2 text-2xl ml-4">
             <router-link to="/login" @click.prevent="toggleDrawer()">
-              <i class="fa-solid fa-right-to-bracket mr-3"></i> Login
+              <i class="fa-solid fa-right-to-bracket mr-3"></i> {{ $t('header.login') }}
             </router-link>
           </div>
         </template>
         <template v-if="isUserLoggedIn()">
           <div class="flex my-2 text-white p-2 text-2xl ml-4">
             <router-link to="/watchlist" @click.prevent="toggleDrawer()">
-              <i class="fa-solid fa-bookmark mr-3"></i> Watchlist
+              <i class="fa-solid fa-bookmark mr-3"></i>{{ $t('header.watchlist') }}
             </router-link>
           </div>
         </template>
@@ -134,7 +132,7 @@ export default {
           <theme-toggler
           class="w-3/4 absolute"
           @click.prevent="toggleDrawer()"/>
-          <span class="ml-8 capitalize">{{ this.$store.getters.getTheme }}</span>
+          <span class="ml-8 capitalize">{{ $t(`theme.${this.$store.getters.getTheme}`) }}</span>
         </div>
         <div class="flex my-2 text-white p-2 text-2xl ml-4">
           <locale-toggler class="w-3/4 absolute"/>
@@ -143,7 +141,7 @@ export default {
         <div class="flex my-2 text-white p-2 text-2xl ml-4">
           <template v-if="isUserLoggedIn()">
             <button type="button" @click.prevent="logout">
-              <i class="fa-solid fa-door-open mr-3"></i> Logout
+              <i class="fa-solid fa-door-open mr-3"></i> {{ $t('header.logout') }}
             </button>
           </template>
         </div>

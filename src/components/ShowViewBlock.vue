@@ -19,8 +19,8 @@ export default {
   <template v-if="getType() === 'string'">
     <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
       <div class="flex items-center justify-center">
-        <p class="md:text-xl text-complementaryColor font-semibold text-center">
-          {{ fieldName }}
+        <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+          {{ $t(`infos.${fieldName}`) }}
         </p>
       </div>
       <div class="col-span-1 my-2">
@@ -33,8 +33,8 @@ export default {
   <template v-if="getType() === 'number'">
     <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
       <div class="flex items-center justify-center">
-        <p class="md:text-xl text-complementaryColor font-semibold text-center">
-          {{ fieldName }}
+        <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+          {{ $t(`infos.${fieldName}`) }}
         </p>
       </div>
       <div class="col-span-1 my-2">
@@ -50,8 +50,8 @@ export default {
   <template v-if="getType() === 'object'">
     <div class="grid grid-cols-2 my-5 w-full md:w-3/4">
       <div class="col-span-1 mx-auto">
-        <p class="md:text-xl text-complementaryColor font-semibold">
-          {{ fieldName }}
+        <p class="md:text-xl text-complementaryColor font-semibold capitalize">
+          {{ $t(`infos.${fieldName}`) }}
         </p>
       </div>
       <div class="col-span-1 flex justify-center items-center mx-auto flex-wrap">

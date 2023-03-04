@@ -19,19 +19,19 @@ export default {
 
 <template>
   <main class="w-screen md:pt-3 text-white text-2xl md:text-lg h-screen
-  overflow-hidden fixed top-0 left-0 border-collapse">
+  overflow-hidden fixed top-0 left-0 md:border-collapse">
     <div class="w-full md:w-2/5 pt-12 md:pt-16 grid grid-cols-2 gap-0 mx-auto">
       <button type="button"
       class="col-span-1 bg-primaryColorShadow p-6"
-      :class="{ 'bg-green-600': formTab === 'login' }"
+      :class="{ 'bg-cyan-600': formTab === 'login' }"
       @click.prevent="formTab = 'login'">
-        Login
+        {{ $t('login.login') }}
       </button>
       <button type="button"
       class="col-span-1 bg-primaryColorShadow p-6"
-      :class="{ 'bg-green-600': formTab === 'register' }"
+      :class="{ 'bg-cyan-600': formTab === 'register' }"
       @click.prevent="formTab = 'register'">
-        Register
+      {{ $t('login.register') }}
       </button>
     </div>
     <div class="bg-primaryColor w-full md:w-2/5 mx-auto p-5 h-screen md:h-2/3">

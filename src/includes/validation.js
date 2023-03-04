@@ -1,10 +1,12 @@
 import {
-  Form as VeeForm, Field as VeeField, defineRule, configure, ErrorMessage,
+  Form as VeeForm, Field as VeeField, defineRule,
+  ErrorMessage, configure,
 } from 'vee-validate';
 import {
   required, min, max, alpha_spaces as alphaSpaces,
   email, confirmed,
 } from '@vee-validate/rules';
+import { localize, setLocale } from '@vee-validate/i18n';
 
 export default {
   install(app) {
@@ -20,21 +22,37 @@ export default {
     defineRule('password_mismatch', confirmed);
 
     configure({
-      generateMessages: (ctx) => {
-        const messages = {
-          required: `${ctx.field} is required.`,
-          min: `${ctx.field} is too short.`,
-          max: `${ctx.field} is too long.`,
-          email: `${ctx.field} is invalid.`,
-          password_mismatch: "Your passwords don't match.",
-        };
-
-        const message = messages[ctx.rule.name]
-          ? messages[ctx.rule.name]
-          : `The field ${ctx.field} is invalid.`;
-
-        return message;
-      },
+      generateMessage: localize({
+        en: {
+          names: {
+            name: 'Name',
+            password: 'Password',
+            email: 'Email',
+          },
+          messages: {
+            required: '{field} is required.',
+            min: '{field} is too short.',
+            max: '{field} is too long.',
+            email: 'Invalid email.',
+            password_mismatch: "Your passwords don't match.",
+          },
+        },
+        'pt-BR': {
+          names: {
+            name: 'Nome',
+            password: 'Senha',
+            email: 'Email',
+          },
+          messages: {
+            required: '{field} é obrigatório.',
+            min: '{field} muito curto.',
+            max: '{field} muito longo.',
+            email: 'Email inválido.',
+            password_mismatch: 'Suas senhas não batem.',
+          },
+        },
+      }),
     });
+    setLocale(localStorage.getItem('language'));
   },
 };

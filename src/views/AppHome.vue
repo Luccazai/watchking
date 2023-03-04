@@ -19,7 +19,7 @@ export default {
       genreList: [],
     };
   },
-  async mounted() {
+  async beforeMount() {
     const getTopRatedMovies = await this.getTopRatedMovies();
     getTopRatedMovies.forEach((show) => {
       this.topRatedMovies.push(
@@ -72,10 +72,10 @@ export default {
     <div>
       <div class="flex flex-col">
         <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-          Top Rated Movies
+          {{ $t('home.topRatedMovies') }}
         </p>
         <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-          The best movies according to IMBD ranking
+          {{ $t('home.topRatedMoviesDescription') }}
         </p>
       </div>
       <base-show-slider :slideContent="topRatedMovies" class="mt-5 md:mt-7"/>
@@ -85,10 +85,10 @@ export default {
     <div>
       <div class="flex flex-col">
         <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-          Top Rated Series
+          {{ $t('home.topRatedSeries') }}
         </p>
         <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-          The best series according to IMBD ranking
+          {{ $t('home.topRatedSeriesDescription') }}
         </p>
       </div>
       <base-show-slider :slideContent="topRatedSeries" class="mt-5 md:mt-7"/>
@@ -98,10 +98,10 @@ export default {
     <div>
       <div class="flex flex-col">
         <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-          Everyone is watching
+          {{ $t('home.everyoneIsWatching') }}
         </p>
         <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-          Top 10 shows of the last weekend
+          {{ $t('home.everyoneIsWatchingDescription') }}
         </p>
       </div>
       <base-show-slider :slideContent="topRatedLastWeek" class="mt-5 md:mt-7"/>
@@ -111,10 +111,10 @@ export default {
     <div>
       <div class="flex flex-col">
         <p class="text-primaryColor font-medium text-3xl text-center md:text-left">
-          Genres
+          {{ $t('home.genres') }}
         </p>
         <p class="text-complementaryColor font-medium text-xl text-center md:text-left">
-          Explore your favorite genre
+          {{ $t('home.genresDescription') }}
         </p>
       </div>
       <home-genre-slider :genreList="genreList" class="mt-5 md:my-7"/>

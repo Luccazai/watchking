@@ -83,7 +83,7 @@ export default {
           >
             <p
             v-for="(character) in member.memberCharacters" :key="character.name">
-              as {{ character.name }}
+              {{ $t('infos.as') }} {{ character.name }}
             </p>
           </template>
         </div>

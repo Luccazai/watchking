@@ -24,10 +24,6 @@ export default {
         console.log(err.code);
         if (err.code === 'auth/wrong-password') {
           this.wrongPassword = true;
-
-          setTimeout(() => {
-            this.wrongPassword = false;
-          }, 2000);
         }
         console.log(err);
       }
@@ -41,8 +37,8 @@ export default {
   :validation-schema="loginSchema"
   @submit="login">
     <div class="flex flex-col">
-      <div class="grid grid-cols-2 my-2">
-        <label class="text-center">Email : </label>
+      <div class="grid grid-rows-2 md:grid-rows-1 gap-y-2 md:grid-cols-2 my-2">
+        <label class="text-center">Email: </label>
         <vee-field type="email" name="email"
         class="text-black mx-4 py-0.5 px-1 rounded-lg outline-none ml-0"/>
       </div>
@@ -51,8 +47,8 @@ export default {
       </p>
     </div>
     <div class="flex flex-col">
-      <div class="grid grid-cols-2 my-2">
-        <label class="text-center">Password: </label>
+      <div class="grid grid-rows-2 md:grid-rows-1 gap-y-2 md:grid-cols-2 my-2">
+        <label class="text-center">{{ $t('login.password') }}: </label>
         <vee-field type="password" name="password"
         class="text-black mx-4 py-0.5 px-1 rounded-lg outline-none ml-0"/>
       </div>
@@ -66,16 +62,20 @@ export default {
         class="font-semibold bg-primaryColorShadow text-white p-2 rounded-lg
         hover:bg-green-600 transition duration-500"
         :disabled="formInSubmission">
-        Login
+        {{ $t('login.login') }}
       </button>
     </div>
   </vee-form>
   <template v-if="wrongPassword">
     <div
-    class="fixed w-full top-14 h-10 bg-red-500 z-50 left-0">
+    class="fixed justify-between flex w-full top-12 h-10 bg-red-500 z-50
+    left-0 px-2 items-center">
       <p>
-        Wrong credentials...
+        {{ $t('login.wrongCredentials') }}
       </p>
+      <button type="button" @click.prevent="wrongPassword = false">
+        <i class="fa fa-xmark text-white text-xl"></i>
+      </button>
     </div>
   </template>
 </template>

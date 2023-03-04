@@ -59,7 +59,11 @@ export default {
       }
     },
   },
-  async beforeMount() {
+  async mounted() {
+    if (!this.$store.getters.isUserLoggedIn) {
+      return;
+    }
+
     this.showIDProp = this.$route.params.id;
 
     const payload = {

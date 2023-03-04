@@ -1,3 +1,47 @@
 {
-  "message": "hello i18n !!"
+  "header": {
+    "login": "Login",
+    "logout": "Logout",
+    "watchlist": "Watchlist"
+  },
+  "home": {
+    "everyoneIsWatching": "Everyone is watching",
+    "everyoneIsWatchingDescription": "Top 10 shows of the last weekend",
+    "genres": "Genres",
+    "genresDescription": "Explore your favorite genre",
+    "topRatedMovies": "Top Rated Movies",
+    "topRatedMoviesDescription": "The best movies according to IMBD ranking",
+    "topRatedSeries": "Top Rated Series",
+    "topRatedSeriesDescription": "The best series according to IMBD ranking"
+  },
+  "infos": {
+    "as": "as",
+    "budget": "Budget",
+    "cast": "Cast",
+    "genres": "Genres",
+    "infos": "Infos",
+    "releaseDate": "Release Date",
+    "revenue": "Revenue",
+    "runtime": "Runtime",
+    "trailer": "Check out the trailer",
+    "type": "Type"
+  },
+  "login": {
+    "alreadyRegistered": "Email already in use.",
+    "confirmPassword": "Confirm Password",
+    "login": "Login",
+    "name": "Name",
+    "password": "Password",
+    "register": "Register",
+    "submit": "Submit",
+    "submitting": "Submitting your credentials...",
+    "wrongCredentials": "Wrong credentials, please try again."
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "validationsMessages": {
+    "required": "This field is required."
+  }
 }

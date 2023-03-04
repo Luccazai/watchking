@@ -1,3 +1,5 @@
+import { setLocale } from '@vee-validate/i18n';
+
 export default {
   state: {
     language: localStorage.getItem('language'),
@@ -10,6 +12,7 @@ export default {
   actions: {
     changeLanguage({ commit }, payload) {
       commit('setLanguage', payload);
+      setLocale(payload);
       localStorage.setItem('language', payload);
     },
   },

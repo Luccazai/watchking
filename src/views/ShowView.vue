@@ -102,8 +102,13 @@ export default {
     if (this.isSeries()) {
       this.showEpisodes = getShowInformations.episodes.episodes.total;
       this.showSeasons = getShowInformations.episodes.seasons.length;
-      this.showPeriod = `${getShowInformations.releaseYear.year} -
-      ${getShowInformations.releaseYear.endYear}`;
+
+      const releaseYear = getShowInformations.releaseYear.year;
+      const endYear = getShowInformations.releaseYear.endYear;
+
+      this.showPeriod = endYear === null
+        ? 'Ongoing'
+        : `${releaseYear} - ${endYear}`;
     }
 
     // Budget Information
@@ -129,7 +134,9 @@ export default {
     // Trailer
 
     const trailerRequisition = await this.getShowTrailer(this.$route.params.id);
-    this.showTrailer = trailerRequisition.trailer;
+    this.showTrailer = trailerRequisition.trailer !== undefined
+      ? trailerRequisition.trailer.replace('embed', 'watch')
+      : `https://www.youtube.com/results?search_query=${this.showTitle}+trailer`;
 
     this.requestIsFinished = true;
   },
@@ -156,23 +163,12 @@ export default {
         </div>
       </div>
       <div class="flex justify-center items-center gap-5 my-4">
-        <template v-if="typeof(showTrailer) !== 'function'">
-          <a
-          v-if="showTrailer !== undefined"
-          :href="showTrailer.replace('embed', 'watch')" target="_blank"
-          class="underline text-primaryColor text-lg">
-            Check out the trailer
-            <i class="text-xs ml-1 fa-solid fa-up-right-from-square"></i>
-          </a>
-          <a
-          v-else
-          target="_blank"
-          :href="`https://www.youtube.com/results?search_query=${showTitle}+trailer`"
-          class="underline text-primaryColor text-lg">
-            Check out the trailer
-            <i class="text-xs ml-1 fa-solid fa-up-right-from-square"></i>
-          </a>
-        </template>
+        <a
+        :href="showTrailer" target="_blank"
+        class="underline text-primaryColor text-lg">
+          {{ $t('infos.trailer') }}
+          <i class="text-xs ml-1 fa-solid fa-up-right-from-square"></i>
+        </a>
       </div>
       <div
       v-if="typeof(showRating) === 'number'"
@@ -194,29 +190,34 @@ export default {
     <div class="w-full flex-col justify-center flex align-middle">
       <div class="flex justify-center items-center my-5">
         <p class="text-3xl text-primaryColor font-semibold">
-          Infos
+          {{ $t('infos.infos') }}
         </p>
       </div>
       <div class="flex flex-col justify-center items-center my-5">
-        <content-block :fieldName="'Type'" :fieldValue="showType"/>
+        <content-block :fieldName="'type'" :fieldValue="showType"/>
         <template v-if="isSeries()">
-          <content-block :fieldName="'Episodes'" :fieldValue="showEpisodes"/>
-          <content-block :fieldName="'Seasons'" :fieldValue="showSeasons"/>
-          <content-block :fieldName="'Period'" :fieldValue="showPeriod"/>
+          <content-block :fieldName="'episodes'" :fieldValue="showEpisodes"/>
+          <content-block :fieldName="'seasons'" :fieldValue="showSeasons"/>
+          <content-block :fieldName="'period'" :fieldValue="showPeriod"/>
         </template>
-        <content-block :fieldName="'Release Date'" :fieldValue="showReleaseDate"/>
-        <content-block :fieldName="'Runtime'" :fieldValue="showRuntime"/>
-        <content-block :fieldName="'Genres'" :fieldValue="showGenres"/>
+        <content-block :fieldName="'release date'" :fieldValue="showReleaseDate"/>
+        <content-block :fieldName="'runtime'" :fieldValue="showRuntime"/>
+        <content-block :fieldName="'genres'" :fieldValue="showGenres"/>
         <content-block
-          :fieldName="'Budget'"
+          :fieldName="'budget'"
           :fieldValue="showBudget"
           :fieldCurrency="showBudgetCurrency"/>
         <content-block
-          :fieldName="'Revenue'"
+          :fieldName="'revenue'"
           :fieldValue="showRevenue"
           :fieldCurrency="showRevenueCurrency"/>
       </div>
       <div class="my-5">
+        <div class="flex justify-center items-center my-5">
+          <p class="text-3xl text-primaryColor font-semibold">
+            {{ $t('infos.cast') }}
+          </p>
+        </div>
         <show-cast-slider/>
       </div>
     </div>

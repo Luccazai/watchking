@@ -1,15 +1,11 @@
 <script>
 export default {
   name: 'TheHeaderLocaleToggler',
-  data() {
-    return {
-      langs: ['en', 'pt-BR'],
-    };
-  },
   methods: {
     toggleLanguage() {
-      this.$i18n.locale = this.$i18n.locale === 'pt-BR' ? 'en' : 'pt-BR';
-      localStorage.setItem('language', this.$i18n.locale);
+      const newLang = this.$i18n.locale === 'pt-BR' ? 'en' : 'pt-BR';
+      this.$i18n.locale = newLang;
+      this.$store.dispatch('changeLanguage', newLang);
     },
   },
 };
