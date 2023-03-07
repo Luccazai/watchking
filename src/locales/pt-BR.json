@@ -60,7 +60,19 @@
     "trailer": "Confira o trailer",
     "type": {
       "title": "Tipo",
-      "movie": "Filme"
+      "movie": "Filme",
+      "musicVideo": "Vídeo Musical",
+      "podcastEpisode": "Episódio de Podcast",
+      "podcastSeries": "Podcast",
+      "short": "Curta-metragem",
+      "tvEpisode": "Episódio",
+      "tvMiniSeries": "Mini Série",
+      "tvPilot": "Piloto",
+      "tvSeries": "Série",
+      "tvShort": "Curta-metragem",
+      "tvSpecial": "Especial",
+      "video": "Vídeo",
+      "videoGame": "Videogame"
     }
   },
   "login": {

@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex mt-6 w-1/2 bottom-0 h-12 bg-primaryColor rounded-lg">
+  <div class="flex mt-6 w-[85%] md:w-1/2 bottom-0 h-12 bg-primaryColor rounded-lg py-0">
     <div class="grid grid-cols-3 w-full">
       <button
       v-if="currentPage > 1"
@@ -35,7 +35,7 @@ export default {
       <button
       type="button"
       @click="this.$router.push({ query: { page: currentPage } })"
-      class="text-white bg-complementaryColor font-semibold"
+      class="text-white bg-cyan-300 font-semibold h-full"
       :class="{ 'col-start-2': currentPage === 1 }">
         {{ currentPage }}
       </button>

@@ -52,8 +52,8 @@ export default {
       :src="showCover"
       :alt="showNameProp"
       :class="{
-        'md:h-3/5 h-[69%]': !hasImage && !isHomePage,
-        'h-4/6': !hasImage && isHomePage,
+        'md:h-3/5 h-[60%]': !hasImage && !isHomePage,
+        'h-3/5 md:3/6': !hasImage && isHomePage,
       }"
       class="text-black dark:text-white text-xl font-semibold
       h-full w-full object-cover mx-auto"

@@ -50,9 +50,9 @@ export default {
       :showCoverProp="show.primaryImage"
       :showIDProp="show.id"/>
     </div>
-    <page-navigator
+  </main>
+  <page-navigator
     class="mx-auto mt-10 my-6"
     v-if="requestIsFinished"
     :hasNext="hasNextPage"/>
-  </main>
 </template>

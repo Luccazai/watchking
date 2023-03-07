@@ -29,6 +29,7 @@ export default {
       showBudgetCurrency: String,
       showRevenue: Number,
       showRevenueCurrency: String,
+      showReleaseDate: String,
       showReleaseDateDay: String,
       showReleaseDateMonth: String,
       showReleaseDateYear: String,
@@ -73,16 +74,18 @@ export default {
 
     this.showTitle = getShowInformations.titleText.text;
 
-    const plot = getShowInformations.plot.plotText;
-    this.showPlot = plot === null ? '' : plot.plainText;
+    const plot = getShowInformations.plot;
+    this.showPlot = plot === null ? '' : plot.plotText.plainText;
 
     this.showRuntime = getShowInformations.runtime !== null
       ? this.convertRuntime(getShowInformations.runtime.seconds)
       : '-';
 
-    this.showType = getShowInformations.titleType.text;
+    this.showType = getShowInformations.titleType.id;
 
-    if (getShowInformations.releaseDate !== null) {
+    this.showReleaseDate = getShowInformations.releaseDate;
+
+    if (this.showReleaseDate !== null) {
       this.showReleaseDateDay = getShowInformations.releaseDate.day;
       this.showReleaseDateMonth = getShowInformations.releaseDate.month;
       this.showReleaseDateYear = getShowInformations.releaseDate.year;
@@ -90,10 +93,12 @@ export default {
 
     // Genres set up
 
-    const genres = getShowInformations.genres.genres;
-    genres.forEach((genre) => {
-      this.showGenres.push(genre.text);
-    });
+    const genres = getShowInformations.genres;
+    if (genres !== null) {
+      genres.genres.forEach((genre) => {
+        this.showGenres.push(genre.text);
+      });
+    }
 
     this.showCover = getShowInformations.primaryImage === null
       ? 'https://cdn2.iconfinder.com/data/icons/symbol-blue-set-3/100/Untitled-1-94-512.png'
@@ -106,14 +111,19 @@ export default {
     // Series Settings
 
     if (this.isSeries()) {
-      this.showEpisodes = getShowInformations.episodes.episodes.total;
-      this.showSeasons = getShowInformations.episodes.seasons.length;
+      this.showEpisodes = getShowInformations.episodes.episodes.total
+        ? getShowInformations.episodes.episodes.total
+        : '-';
+
+      this.showSeasons = getShowInformations.episodes.seasons.length
+        ? getShowInformations.episodes.seasons.length
+        : '-';
 
       const releaseYear = getShowInformations.releaseYear.year;
       const endYear = getShowInformations.releaseYear.endYear;
 
       this.showPeriod = endYear === null
-        ? 'Ongoing'
+        ? `${releaseYear} - Ongoing`
         : `${releaseYear} - ${endYear}`;
     }
 
@@ -210,7 +220,7 @@ export default {
         </div>
         <div class="col-span-1 my-2">
           <p class="text-center">
-            {{ $t('infos.type.movie') }}
+            {{ $t(`infos.type.${showType}`) }}
           </p>
         </div>
       </div>
@@ -263,12 +273,15 @@ export default {
           </p>
         </div>
         <div class="col-span-1 my-2">
-          <p class="text-center">
+          <p class="text-center" v-if="showReleaseDate !== null">
             {{ $t('infos.releaseDate', {
               day: showReleaseDateDay,
               month: showReleaseDateMonth,
               year: showReleaseDateYear,
             }) }}
+          </p>
+          <p  class="text-center" v-else>
+            -
           </p>
         </div>
       </div>
@@ -300,6 +313,9 @@ export default {
           v-for="(genre) in showGenres" :key="genre">
             {{ $t(`genres.${genre}`) }}
           </router-link>
+          <p v-if="showGenres.length === 0">
+            -
+          </p>
         </div>
       </div>
       <!-- Budget -->

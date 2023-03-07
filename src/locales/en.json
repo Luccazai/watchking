@@ -60,7 +60,19 @@
     "trailer": "Check out the trailer",
     "type": {
       "title": "Type",
-      "movie": "Movie"
+      "movie": "Movie",
+      "musicVideo": "Music Video",
+      "podcastEpisode": "Podcast Episode",
+      "podcastSeries": "Podcast Series",
+      "short": "Short",
+      "tvEpisode": "Episode",
+      "tvMiniSeries": "Mini Series",
+      "tvPilot": "Pilot",
+      "tvSeries": "Series",
+      "tvShort": "Short",
+      "tvSpecial": "TV Special",
+      "video": "Video",
+      "videoGame": "Video Game"
     }
   },
   "login": {
