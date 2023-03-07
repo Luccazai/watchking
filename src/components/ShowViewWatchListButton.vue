@@ -1,4 +1,7 @@
 <script>
+
+import { auth } from '@/includes/firebase';
+
 export default {
   name: 'ShowViewWatchlistButton',
   data() {
@@ -12,14 +15,14 @@ export default {
   },
   methods: {
     async manageWatchlist() {
-      const requisition = {
-        showID: this.showIDProp,
-        userID: this.$store.getters.getUserID,
-      };
-
-      if (requisition.userID === undefined) {
+      if (!this.$store.getters.isUserLoggedIn) {
         this.$router.push('/login');
       }
+
+      const requisition = {
+        showID: this.showIDProp,
+        userID: auth.currentUser.uid,
+      };
 
       if (!this.isOnWatchlist) {
         try {
@@ -68,12 +71,11 @@ export default {
 
     const payload = {
       showID: this.showIDProp,
-      userID: this.$store.getters.getUserID,
+      userID: auth.currentUser.uid,
     };
 
     try {
       const isOnList = await this.$store.dispatch('isOnWatchlist', payload);
-      console.log('IS ON LIST: ', isOnList);
 
       if (isOnList.length === 0) {
         return;

@@ -1,9 +1,9 @@
 <script>
 
+import { mapMutations } from 'vuex';
 import apiFunctions from '@/mixins/apiFunctions';
 import ShowViewWatchListButton from '@/components/ShowViewWatchListButton.vue';
 import ReviewStars from '@/components/ReviewStars.vue';
-import ShowViewBlock from '@/components/ShowViewBlock.vue';
 import ShowCastSlider from '@/components/ShowCastSlider.vue';
 
 export default {
@@ -12,7 +12,6 @@ export default {
   components: {
     WatchlistButton: ShowViewWatchListButton,
     ReviewStars,
-    ContentBlock: ShowViewBlock,
     ShowCastSlider,
   },
   data() {
@@ -30,7 +29,9 @@ export default {
       showBudgetCurrency: String,
       showRevenue: Number,
       showRevenueCurrency: String,
-      showReleaseDate: String,
+      showReleaseDateDay: String,
+      showReleaseDateMonth: String,
+      showReleaseDateYear: String,
       showTrailer: String,
       showGenres: [],
       showCast: [],
@@ -39,6 +40,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['toggleLoading']),
+
     isSeries() {
       return (
         this.showType === 'Series'
@@ -60,6 +63,7 @@ export default {
     },
   },
   async beforeMount() {
+    this.toggleLoading();
     const getShowInformations = await this.getShowByID(this.$route.params.id, 'base_info');
 
     if (getShowInformations === null) {
@@ -77,14 +81,16 @@ export default {
       : '-';
 
     this.showType = getShowInformations.titleType.text;
-    this.showReleaseDate = getShowInformations.releaseDate !== null
-      ? `${getShowInformations.releaseDate.day}/${getShowInformations.releaseDate.month}/${getShowInformations.releaseDate.year}`
-      : '-';
+
+    if (getShowInformations.releaseDate !== null) {
+      this.showReleaseDateDay = getShowInformations.releaseDate.day;
+      this.showReleaseDateMonth = getShowInformations.releaseDate.month;
+      this.showReleaseDateYear = getShowInformations.releaseDate.year;
+    }
 
     // Genres set up
 
     const genres = getShowInformations.genres.genres;
-    console.log('Genres: ', genres);
     genres.forEach((genre) => {
       this.showGenres.push(genre.text);
     });
@@ -139,6 +145,7 @@ export default {
       : `https://www.youtube.com/results?search_query=${this.showTitle}+trailer`;
 
     this.requestIsFinished = true;
+    this.toggleLoading();
   },
 };
 </script>
@@ -194,23 +201,139 @@ export default {
         </p>
       </div>
       <div class="flex flex-col justify-center items-center my-5">
-        <content-block :fieldName="'type'" :fieldValue="showType"/>
-        <template v-if="isSeries()">
-          <content-block :fieldName="'episodes'" :fieldValue="showEpisodes"/>
-          <content-block :fieldName="'seasons'" :fieldValue="showSeasons"/>
-          <content-block :fieldName="'period'" :fieldValue="showPeriod"/>
-        </template>
-        <content-block :fieldName="'release date'" :fieldValue="showReleaseDate"/>
-        <content-block :fieldName="'runtime'" :fieldValue="showRuntime"/>
-        <content-block :fieldName="'genres'" :fieldValue="showGenres"/>
-        <content-block
-          :fieldName="'budget'"
-          :fieldValue="showBudget"
-          :fieldCurrency="showBudgetCurrency"/>
-        <content-block
-          :fieldName="'revenue'"
-          :fieldValue="showRevenue"
-          :fieldCurrency="showRevenueCurrency"/>
+      <!-- Type -->
+      <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+        <div class="flex items-center justify-center">
+          <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+            {{ $t('infos.type.title') }}
+          </p>
+        </div>
+        <div class="col-span-1 my-2">
+          <p class="text-center">
+            {{ $t('infos.type.movie') }}
+          </p>
+        </div>
+      </div>
+      <template v-if="isSeries()">
+        <!-- Episodes -->
+        <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+          <div class="flex items-center justify-center">
+            <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+              {{ $t('infos.episodes') }}
+            </p>
+          </div>
+          <div class="col-span-1 my-2">
+            <p class="text-center">
+              {{ showEpisodes }}
+            </p>
+          </div>
+        </div>
+        <!-- Episodes -->
+        <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+          <div class="flex items-center justify-center">
+            <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+              {{ $t('infos.seasons') }}
+            </p>
+          </div>
+          <div class="col-span-1 my-2">
+            <p class="text-center">
+              {{ showSeasons }}
+            </p>
+          </div>
+        </div>
+        <!-- Period -->
+        <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+          <div class="flex items-center justify-center">
+            <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+              {{ $t('infos.period') }}
+            </p>
+          </div>
+          <div class="col-span-1 my-2">
+            <p class="text-center">
+              {{ showPeriod }}
+            </p>
+          </div>
+        </div>
+      </template>
+      <!-- Release Date -->
+      <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+        <div class="flex items-center justify-center">
+          <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+            {{ $t('infos.release') }}
+          </p>
+        </div>
+        <div class="col-span-1 my-2">
+          <p class="text-center">
+            {{ $t('infos.releaseDate', {
+              day: showReleaseDateDay,
+              month: showReleaseDateMonth,
+              year: showReleaseDateYear,
+            }) }}
+          </p>
+        </div>
+      </div>
+      <!-- Runtime -->
+      <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+        <div class="flex items-center justify-center">
+          <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+            {{ $t('infos.runtime') }}
+          </p>
+        </div>
+        <div class="col-span-1 my-2">
+          <p class="text-center">
+            {{ showRuntime }}
+          </p>
+        </div>
+      </div>
+      <!-- Genres -->
+      <div class="grid grid-cols-2 my-5 w-full md:w-3/4">
+        <div class="col-span-1 mx-auto">
+          <p class="md:text-xl text-complementaryColor font-semibold capitalize">
+            {{ $t('infos.genres') }}
+          </p>
+        </div>
+        <div class="col-span-1 flex justify-center items-center mx-auto flex-wrap">
+          <router-link
+          :to="{ name: 'genre', params: { genre: genre }, query: { page: 1 } }"
+          class="hover:text-complementaryColor mx-1
+          transition duration-500 hover:font-semibold underline"
+          v-for="(genre) in showGenres" :key="genre">
+            {{ $t(`genres.${genre}`) }}
+          </router-link>
+        </div>
+      </div>
+      <!-- Budget -->
+      <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+        <div class="flex items-center justify-center">
+          <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+            {{ $t('infos.budget') }}
+          </p>
+        </div>
+        <div class="col-span-1 my-2">
+          <p class="text-center" v-if="typeof(showBudget) === 'number'">
+            {{ $n(showBudget, 'currency', { currency: showBudgetCurrency }) }}
+          </p>
+          <p class="text-center" v-if="typeof(showBudget) !== 'number'">
+            -
+          </p>
+        </div>
+      </div>
+      <!-- Revenue -->
+      <div class="grid grid-cols-2 w-full md:w-3/4 my-5">
+        <div class="flex items-center justify-center">
+          <p class="md:text-xl text-complementaryColor font-semibold capitalize text-center">
+            {{ $t('infos.revenue') }}
+          </p>
+        </div>
+        <div class="col-span-1 my-2">
+          <p class="text-center" v-if="typeof(showRevenue) === 'number'">
+            {{ $n(showRevenue, 'currency', { currency: showRevenueCurrency }) }}
+          </p>
+          <p class="text-center" v-if="typeof(showRevenue) !== 'number'">
+            -
+          </p>
+        </div>
+      </div>
       </div>
       <div class="my-5">
         <div class="flex justify-center items-center my-5">

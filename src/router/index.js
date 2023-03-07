@@ -1,16 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '@/store';
 
-import AppHome from '@/views/AppHome.vue';
-import AppLogin from '@/views/AppLogin.vue';
-
-import ShowView from '@/views/ShowView.vue';
-import UserWatchlist from '@/views/UserWatchlist.vue';
-
-import AppShowSearch from '@/views/AppShowSearch.vue';
-import AppGenreSearch from '@/views/AppGenreSearch.vue';
-
-import PageNotFound from '@/views/PageNotFound.vue';
+const AppHome = () => import(/* webpackChunkName: "home" */'@/views/AppHome.vue');
+const AppLogin = () => import('@/views/AppLogin.vue');
+const ShowView = () => import(/* webpackChunkName: "search" */'@/views/ShowView.vue');
+const UserWatchlist = () => import('@/views/UserWatchlist.vue');
+const AppShowSearch = () => import(/* webpackChunkName: "search" */'@/views/AppShowSearch.vue');
+const AppGenreSearch = () => import(/* webpackChunkName: "home" */'@/views/AppGenreSearch.vue');
+const PageNotFound = () => import('@/views/PageNotFound.vue');
 
 const routes = [
   {

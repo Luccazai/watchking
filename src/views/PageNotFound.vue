@@ -6,7 +6,7 @@ export default {
 
 <template>
   <h2 class="text-primaryColor text-center pt-9 md:text-4xl text-2xl">
-    This page does not exists.
+    {{ $t('not_found.title') }}
   </h2>
   <div class="my-4 flex flex-col w-2/3 justify-center mx-auto">
     <img
@@ -15,7 +15,7 @@ export default {
     class="w-full"
     />
     <router-link class="text-primaryColor text-center pt-9 text-2xl underline" to="/">
-      Go back to home page
+      {{ $t('not_found.back_to_home') }}
     </router-link>
   </div>
 </template>

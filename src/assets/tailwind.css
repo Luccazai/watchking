@@ -14,3 +14,7 @@ body {
   @apply dark:bg-darkBackground;
   @apply transition-colors duration-500 ease-in-out;
 }
+
+.block-scroll {
+  overflow: hidden;
+}

@@ -26,15 +26,15 @@ export default createI18n({
   messages: loadLocaleMessages(),
   numberFormats: {
     en: {
-      decimal: {
-        style: 'decimal',
+      currency: {
+        style: 'currency',
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       },
     },
     'pt-BR': {
-      decimal: {
-        style: 'decimal',
+      currency: {
+        style: 'currency',
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       },

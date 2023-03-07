@@ -43,7 +43,6 @@ export default {
       );
 
       const queryResult = await getDocs(q);
-      console.log(queryResult);
       return queryResult;
     },
 

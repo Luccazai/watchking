@@ -1,4 +1,7 @@
 <script>
+
+import { auth } from '@/includes/firebase';
+
 export default {
   name: 'BaseShowCardFlag',
   props: {
@@ -19,7 +22,7 @@ export default {
 
       const requisition = {
         showID: this.showIDProp,
-        userID: this.$store.getters.getUserID,
+        userID: auth.currentUser.uid,
       };
 
       if (!this.isOnWatchlist) {
@@ -54,15 +57,14 @@ export default {
       }
     },
   },
-  async beforeMount() {
+  async created() {
     const payload = {
       showID: this.showIDProp,
-      userID: this.$store.getters.getUserID,
+      userID: auth.currentUser.uid,
     };
 
     try {
       const isOnList = await this.$store.dispatch('isOnWatchlist', payload);
-      console.log(isOnList);
 
       if (isOnList.length === 0) {
         return;

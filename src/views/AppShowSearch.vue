@@ -1,5 +1,6 @@
 <script>
 
+import { mapMutations } from 'vuex';
 import apiFunctions from '@/mixins/apiFunctions';
 import BaseShowCard from '@/components/base/BaseShowCard.vue';
 import BasePageNavigator from '@/components/base/BasePageNavigator.vue';
@@ -11,6 +12,9 @@ export default {
     ShowCard: BaseShowCard,
     PageNavigator: BasePageNavigator,
   },
+  methods: {
+    ...mapMutations(['toggleLoading']),
+  },
   data() {
     return {
       showList: [],
@@ -20,22 +24,22 @@ export default {
     };
   },
   async beforeMount() {
+    this.toggleLoading();
+
     const request = await this.getSearchResults(
       this.$route.params.title,
       this.$route.query.page,
     );
 
-    console.log(request);
-
     if (request[0].length === 0) {
       this.noShowFound = true;
-      console.log('No show found');
-      return;
     }
 
     this.showList = request[0];
     this.hasNextPage = request[1];
     this.requestIsFinished = true;
+
+    this.toggleLoading();
   },
 };
 </script>
@@ -56,20 +60,23 @@ export default {
       </div>
     </template>
     <template v-else>
-      <div class="text-primaryColor flex justify-center flex-col w-2/3 mx-auto">
-        <p class="md:text-4xl text-2xl my-5 text-center">
-          Sorry, we did not found results for {{ this.$route.params.title }}.
+      <div
+      class="flex w-screen h-screen absolute left-0 top-0
+      justify-center flex-col mx-auto dark:text-white">
+        <p class="text-2xl my-5 text-center">
+          {{ $t('showSearch.not_found') }}
+          <span class="text-primaryColor ">{{ this.$route.params.title }}</span>.
         </p>
         <img
         src="https://media4.giphy.com/media/Ty9Sg8oHghPWg/giphy.gif?cid=ecf05e47dnezwrn4l7pru6hqm1qxoejxdmsmxmd9vmh9kh6x&rid=giphy.gif&ct=g"
         alt="GIF"
-        class="w-full"/>
+        class="w-full px-4 md:px-0 md:w-1/3 md:mx-auto"/>
       </div>
     </template>
   </main>
   <page-navigator
   class="mx-auto mt-10 my-6"
-  v-if="requestIsFinished"
+  v-if="requestIsFinished && !noShowFound"
   :hasNext="hasNextPage"
   />
 </template>

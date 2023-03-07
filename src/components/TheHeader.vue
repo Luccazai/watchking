@@ -27,10 +27,17 @@ export default {
       });
 
       this.$router.push('/');
+      // window.location.reload();
     },
 
     toggleDrawer() {
       this.drawerOpen = !this.drawerOpen;
+    },
+
+    closeDrawer() {
+      if (this.drawerOpen) {
+        this.toggleDrawer();
+      }
     },
 
     getLanguage() {
@@ -47,7 +54,7 @@ export default {
     class="lg:hidden grid grid-cols-2 grid-rows-1 w-full">
       <div
       class="col-span-1 w-full text-white font-bold text-2xl flex justify-start ml-4">
-        <router-link to="/">
+        <router-link to="/" @click.prevent="closeDrawer()">
           WatchKing
         </router-link>
       </div>
@@ -104,11 +111,16 @@ export default {
 
   <!-- Mobile Drawer -->
 
+  <div
+  class="w-screen h-screen fixed top-12 z-40 backdrop-blur-md"
+  v-if="drawerOpen">
+  </div>
+
   <transition name="slide">
     <div
     v-if="drawerOpen"
     class="fixed z-50 top-12 flex w-full h-screen
-    backdrop-blur-sm lg:hidden">
+    lg:hidden">
       <div class="flex flex-col w-4/5 bg-primaryColorShadow text-2xl">
         <div class="flex justify-center w-4/5 my-2
         text-white p-2 text-xl mx-auto">
@@ -145,6 +157,8 @@ export default {
             </button>
           </template>
         </div>
+      </div>
+      <div class="w-1/5" @click.prevent="toggleDrawer()">
       </div>
     </div>
   </transition>

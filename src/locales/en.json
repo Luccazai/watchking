@@ -1,4 +1,34 @@
 {
+  "genres": {
+    "Action": "Action",
+    "Adult": "Adult",
+    "Adventure": "Adventure",
+    "Animation": "Animation",
+    "Biography": "Biography",
+    "Comedy": "Comedy",
+    "Crime": "Crime",
+    "Documentary": "Documentary",
+    "Drama": "Drama",
+    "Family": "Family",
+    "Fantasy": "Fantasy",
+    "Film-Noir": "Film-Noir",
+    "Game-Show": "Game-Show",
+    "History": "History",
+    "Horror": "Horror",
+    "Music": "Music",
+    "Musical": "Musical",
+    "Mystery": "Mystery",
+    "News": "News",
+    "Reality-TV": "Reality Show",
+    "Romance": "Romance",
+    "Sci-Fi": "Sci-Fi",
+    "Short": "Short",
+    "Sport": "Sport",
+    "Talk-Show": "Talk-Show",
+    "Thriller": "Thriller",
+    "War": "War",
+    "Western": "Western"
+  },
   "header": {
     "login": "Login",
     "logout": "Logout",
@@ -18,13 +48,20 @@
     "as": "as",
     "budget": "Budget",
     "cast": "Cast",
+    "episodes": "Episodes",
     "genres": "Genres",
     "infos": "Infos",
-    "releaseDate": "Release Date",
+    "period": "Period",
+    "release": "Release Date",
+    "releaseDate": "{month}/{day}/{year}",
     "revenue": "Revenue",
     "runtime": "Runtime",
+    "seasons": "Seasons",
     "trailer": "Check out the trailer",
-    "type": "Type"
+    "type": {
+      "title": "Type",
+      "movie": "Movie"
+    }
   },
   "login": {
     "alreadyRegistered": "Email already in use.",
@@ -37,11 +74,22 @@
     "submitting": "Submitting your credentials...",
     "wrongCredentials": "Wrong credentials, please try again."
   },
+  "not_found": {
+    "title": "This page does not exists.",
+    "back_to_home": "Go back to home page"
+  },
+  "showSearch": {
+    "not_found": "Sorry, we could not found results for"
+  },
   "theme": {
     "dark": "Dark",
     "light": "Light"
   },
   "validationsMessages": {
     "required": "This field is required."
+  },
+  "watchlist": {
+    "no_shows": "No movies on your watchlist. Explore and discover shows on the",
+    "home": "home page"
   }
 }

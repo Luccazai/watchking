@@ -18,14 +18,13 @@ export default {
 
       try {
         await this.$store.dispatch('login', values);
+        // window.location.reload();
         this.$router.push('/');
       } catch (err) {
         this.formInSubmission = false;
-        console.log(err.code);
         if (err.code === 'auth/wrong-password') {
           this.wrongPassword = true;
         }
-        console.log(err);
       }
     },
   },

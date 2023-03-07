@@ -15,8 +15,6 @@ export default {
 
       document.getElementById(this.idKey).value = '';
 
-      console.log(this.$parent.$parent.$options);
-
       if (this.$parent.$options.name === 'BaseTransition') {
         this.$emit('toggleDrawer');
       }

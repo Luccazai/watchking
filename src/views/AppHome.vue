@@ -1,5 +1,6 @@
 <script>
 
+import { mapMutations } from 'vuex';
 import apiFunctions from '@/mixins/apiFunctions';
 import BaseShowSlider from '@/components/base/BaseShowSlider.vue';
 import HomeGenreSlider from '@/components/HomeGenreSlider.vue';
@@ -11,6 +12,9 @@ export default {
     BaseShowSlider,
     HomeGenreSlider,
   },
+  methods: {
+    ...mapMutations(['toggleLoading']),
+  },
   data() {
     return {
       topRatedMovies: [],
@@ -20,6 +24,8 @@ export default {
     };
   },
   async beforeMount() {
+    this.toggleLoading();
+
     const getTopRatedMovies = await this.getTopRatedMovies();
     getTopRatedMovies.forEach((show) => {
       this.topRatedMovies.push(
@@ -54,14 +60,18 @@ export default {
     });
 
     const getGenres = await this.getGenres();
-    console.log('GENRES: ', getGenres);
+
+    const excludedGenres = ['Adult', 'Game-Show', 'Music', 'News'];
+
     getGenres.forEach((genre) => {
-      if (genre !== null) {
+      if (genre !== null && !excludedGenres.includes(genre)) {
         this.genreList.push(
           genre,
         );
       }
     });
+
+    this.toggleLoading();
   },
 };
 </script>

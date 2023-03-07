@@ -16,7 +16,6 @@ export default {
   mutations: {
     toggleAuthState(state) {
       state.isUserLoggedIn = !state.isUserLoggedIn;
-      console.log('Logged: ', state.isUserLoggedIn);
     },
   },
   actions: {
@@ -48,7 +47,6 @@ export default {
       );
 
       commit('toggleAuthState');
-      console.log(auth.currentUser);
     },
 
     init_login({ commit }) {

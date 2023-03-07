@@ -23,13 +23,13 @@ export default {
     <div class="w-full md:w-2/5 pt-12 md:pt-16 grid grid-cols-2 gap-0 mx-auto">
       <button type="button"
       class="col-span-1 bg-primaryColorShadow p-6"
-      :class="{ 'bg-cyan-600': formTab === 'login' }"
+      :class="{ 'bg-green-700': formTab === 'login' }"
       @click.prevent="formTab = 'login'">
         {{ $t('login.login') }}
       </button>
       <button type="button"
       class="col-span-1 bg-primaryColorShadow p-6"
-      :class="{ 'bg-cyan-600': formTab === 'register' }"
+      :class="{ 'bg-green-700': formTab === 'register' }"
       @click.prevent="formTab = 'register'">
       {{ $t('login.register') }}
       </button>

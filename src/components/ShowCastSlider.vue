@@ -29,9 +29,7 @@ export default {
   },
   async beforeMount() {
     let getCast = await this.getCast(this.$route.params.id);
-    console.log('CAST: ', getCast);
     getCast = getCast.cast.edges;
-    console.log(getCast);
 
     if (getCast.length === 0) {
       this.hasCast = false;

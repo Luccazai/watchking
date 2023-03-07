@@ -1,12 +1,14 @@
 <script>
 
-import TheHeader from '@/components/TheHeader.vue';
 import { mapActions, mapGetters } from 'vuex';
+import TheHeader from '@/components/TheHeader.vue';
+import AppLoadWheel from './components/AppLoadWheel.vue';
 
 export default {
   name: 'App',
   components: {
     TheHeader,
+    LoadingWheel: AppLoadWheel,
   },
   computed: {
     ...mapGetters(['getLanguage', 'isUserLoggedIn']),
@@ -18,9 +20,6 @@ export default {
   async beforeMount() {
     // If theme isn't set on Local Storage
 
-    console.log('THEME: ', localStorage.getItem('colorTheme'));
-    console.log('LANG: ', localStorage.getItem('language'));
-
     if (localStorage.key('colorTheme') === null) {
       this.toggleTheme();
       this.changeLanguage('en');
@@ -28,9 +27,6 @@ export default {
 
     this.activateTheme();
     this.$i18n.locale = this.getLanguage;
-    console.log('LANG: ', this.$i18n.locale);
-
-    console.log('Is Logged? ', this.isUserLoggedIn);
     await this.$store.dispatch('init_login');
   },
 };
@@ -40,4 +36,5 @@ export default {
   <div class="block mb-12"></div>
   <TheHeader/>
   <router-view :key="$route.fullPath"/>
+  <loading-wheel/>
 </template>

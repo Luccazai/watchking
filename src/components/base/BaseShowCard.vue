@@ -23,7 +23,7 @@ export default {
   computed: {
     ...mapGetters(['isUserLoggedIn']),
   },
-  async beforeMount() {
+  beforeMount() {
     if (this.showCoverProp === null) {
       this.showCover = 'https://cdn2.iconfinder.com/data/icons/symbol-blue-set-3/100/Untitled-1-94-512.png';
       this.hasImage = false;
@@ -52,8 +52,7 @@ export default {
       :src="showCover"
       :alt="showNameProp"
       :class="{
-        'h-[80%]': !hasImage && !isHomePage,
-        'md:h-3/5 h-[70%]': !hasImage,
+        'md:h-3/5 h-[69%]': !hasImage && !isHomePage,
         'h-4/6': !hasImage && isHomePage,
       }"
       class="text-black dark:text-white text-xl font-semibold

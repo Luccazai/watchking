@@ -1,4 +1,6 @@
 <script>
+
+import { mapMutations } from 'vuex';
 import BaseShowCard from '@/components/base/BaseShowCard.vue';
 import BasePageNavigator from '@/components/base/BasePageNavigator.vue';
 import apiFunctions from '@/mixins/apiFunctions';
@@ -10,6 +12,9 @@ export default {
     ShowCard: BaseShowCard,
     PageNavigator: BasePageNavigator,
   },
+  methods: {
+    ...mapMutations(['toggleLoading']),
+  },
   data() {
     return {
       showList: [],
@@ -18,14 +23,16 @@ export default {
     };
   },
   async beforeMount() {
+    this.toggleLoading();
+
     let paramGenre = this.$route.params.genre;
     paramGenre = paramGenre.charAt(0).toUpperCase() + paramGenre.slice(1);
 
     const result = await this.getShowsByGenre(paramGenre, this.$route.query.page);
-    console.log('GENRE SearCH resuLTS: ', result);
     this.showList = result[0];
     this.hasNextPage = result[1];
     this.requestIsFinished = true;
+    this.toggleLoading();
   },
 };
 </script>

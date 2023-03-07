@@ -20,6 +20,7 @@ export default {
 
       try {
         await this.$store.dispatch('register', values);
+        // window.location.reload();
       } catch (err) {
         this.formInSubmission = false;
 
@@ -27,7 +28,6 @@ export default {
           this.alreadyRegistered = true;
         }
 
-        console.log(err.code);
         return;
       }
 

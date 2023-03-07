@@ -1,4 +1,34 @@
 {
+  "genres": {
+    "Action": "Ação",
+    "Adult": "Adulto",
+    "Adventure": "Aventura",
+    "Animation": "Animação",
+    "Biography": "Biografia",
+    "Comedy": "Comédia",
+    "Crime": "Criminal",
+    "Documentary": "Documentário",
+    "Drama": "Drama",
+    "Family": "Familiar",
+    "Fantasy": "Fantasia",
+    "Film-Noir": "Investigação",
+    "Game-Show": "Game-Show",
+    "History": "História",
+    "Horror": "Terror",
+    "Music": "Música",
+    "Musical": "Musical",
+    "Mystery": "Mistério",
+    "News": "Notícias",
+    "Reality-TV": "Reality Show",
+    "Romance": "Romance",
+    "Sci-Fi": "Ficção Científica",
+    "Short": "Curta-metragem",
+    "Sport": "Esportes",
+    "Talk-Show": "Talk-Show",
+    "Thriller": "Thriller",
+    "War": "Guerra",
+    "Western": "Velho Oeste"
+  },
   "header": {
     "login": "Entrar",
     "logout": "Sair",
@@ -18,13 +48,20 @@
     "as": "como",
     "budget": "Orçamento",
     "cast": "Elenco",
+    "episodes": "Episódios",
     "genres": "Gêneros",
     "infos": "Sobre",
-    "releaseDate": "Data de Lançamento",
+    "period": "Período",
+    "release": "Data de Lançamento",
+    "releaseDate": "{day}/{month}/{year}",
     "revenue": "Faturamento",
     "runtime": "Duração",
+    "seasons": "Temporadas",
     "trailer": "Confira o trailer",
-    "type": "Tipo"
+    "type": {
+      "title": "Tipo",
+      "movie": "Filme"
+    }
   },
   "login": {
     "alreadyRegistered": "Este email já está em uso.",
@@ -37,11 +74,22 @@
     "submitting": "Enviando suas credenciais...",
     "wrongCredentials": "Credenciais incorretas, por favor confira e tente novamente."
   },
+  "not_found": {
+    "title": "A página que você buscou não existe.",
+    "back_to_home": "Voltar para a página inicial"
+  },
+  "showSearch": {
+    "not_found": "Desculpe, mas não encontramos nenhuma correspondência para"
+  },
   "theme": {
     "dark": "Escuro",
     "light": "Claro"
   },
   "validationsMessages": {
     "required": "Esse campo é obrigatório."
+  },
+  "watchlist": {
+    "no_shows": "Nenhum filme adicionado. Explore filmes e séries na",
+    "home": "página inicial"
   }
 }
